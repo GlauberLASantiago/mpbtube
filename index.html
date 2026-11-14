@@ -1430,6 +1430,77 @@
       background: var(--bg-surface-hover);
     }
 
+    mark.search-highlight {
+      background: rgba(245, 158, 11, 0.28);
+      color: var(--text-primary);
+      padding: 0.03rem 0.22rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .search-results-banner {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 1.15rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .search-results-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .search-results-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-results-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.18rem;
+    }
+
+    .search-topic-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.42rem;
+    }
+
+    .search-topic-pill {
+      padding: 0.34rem 0.72rem;
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      background: var(--accent-soft);
+      border: 1px solid var(--border-strong);
+      color: var(--accent-text);
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .search-topic-pill:hover {
+      background: var(--accent);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
     .stats-pill {
       padding: 0.68rem 1rem;
       background: var(--bg-card);
@@ -2382,6 +2453,10 @@
       .search-input {
         font-size: 0.83rem;
         padding: 0.68rem 2.2rem 0.68rem 2.45rem;
+      }
+
+      .search-results-banner {
+        padding: 0.95rem 0.85rem;
       }
 
       .stats-pill {
@@ -3731,10 +3806,69 @@
           .replace(/[\u0300-\u036f]/g, '');
       }
 
+      function getSearchTokens(query) {
+        return normalizeSearchText(query)
+          .replace(/[^a-z0-9]+/g, ' ')
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+      }
+
+      function matchesTokensInText(text, tokens) {
+        if (!tokens || tokens.length === 0) return true;
+        const hay = normalizeSearchText(text).replace(/[^a-z0-9]+/g, ' ');
+        return tokens.every((tok) => hay.includes(tok));
+      }
+
       function escapeHtml(str) {
         const div = document.createElement('div');
         div.textContent = str || '';
         return div.innerHTML;
+      }
+
+      function highlightTextHtml(str, rawQuery) {
+        const raw = String(str || '');
+        const tokens = getSearchTokens(rawQuery).filter((t) => t.length >= 2);
+        if (!raw || tokens.length === 0) return escapeHtml(raw);
+        const normChars = [];
+        const origBounds = [];
+        let pos = 0;
+        for (const ch of raw) {
+          const nextPos = pos + ch.length;
+          const norm = normalizeSearchText(ch);
+          if (!norm) {
+            if (origBounds.length > 0) origBounds[origBounds.length - 1][1] = nextPos;
+          } else {
+            for (const nc of norm) {
+              normChars.push(nc);
+              origBounds.push([pos, nextPos]);
+            }
+          }
+          pos = nextPos;
+        }
+        const normStr = normChars.join('');
+        const matched = new Uint8Array(raw.length);
+        const uniqueTokens = Array.from(new Set(tokens)).sort((a, b) => b.length - a.length);
+        uniqueTokens.forEach((tok) => {
+          let idx = 0;
+          while ((idx = normStr.indexOf(tok, idx)) !== -1) {
+            const startRaw = origBounds[idx][0];
+            const endRaw = origBounds[idx + tok.length - 1][1];
+            for (let k = startRaw; k < endRaw; k++) matched[k] = 1;
+            idx += Math.max(1, tok.length);
+          }
+        });
+        let out = '';
+        let i = 0;
+        while (i < raw.length) {
+          const flag = matched[i];
+          let j = i;
+          while (j < raw.length && matched[j] === flag) j++;
+          const chunk = escapeHtml(raw.slice(i, j));
+          out += flag ? `<mark class="search-highlight">${chunk}</mark>` : chunk;
+          i = j;
+        }
+        return out;
       }
 
       function formatTime(totalSeconds) {
@@ -4740,11 +4874,12 @@
         });
       }
 
-      function createVideoCard(video, contextType) {
+      function createVideoCard(video, contextType, options = {}) {
         const isCurrentlyPlaying = activePlayMode === 'video' && video.id === activeVideoId;
-        const completed = isVideoCompleted(video);
-        const inProgress = isVideoInProgress(video);
-        const pct = getProgressPercent(video);
+        const completed = !options.isGuideExtra && isVideoCompleted(video);
+        const inProgress = !options.isGuideExtra && isVideoInProgress(video);
+        const pct = options.isGuideExtra ? 0 : getProgressPercent(video);
+        const openHandler = typeof options.onOpen === 'function' ? options.onOpen : () => openVideoInCinema(video.id);
 
         const card = document.createElement('article');
         card.className = 'video-card' + (isCurrentlyPlaying ? ' is-playing' : '') + (completed ? ' is-watched' : '');
@@ -4755,7 +4890,7 @@
         const thumbWrap = document.createElement('div');
         thumbWrap.className = 'thumb-wrapper';
         thumbWrap.title = `Reproduzir: ${video.title}`;
-        thumbWrap.onclick = () => openVideoInCinema(video.id);
+        thumbWrap.onclick = openHandler;
 
         const img = document.createElement('img');
         img.className = 'thumb-img';
@@ -4792,7 +4927,7 @@
           thumbWrap.appendChild(watchedBadge);
         }
 
-        if (video.playlistName && (contextType === 'continue' || contextType === 'completed')) {
+        if (video.playlistName && (contextType === 'continue' || contextType === 'completed' || contextType === 'search')) {
           const plChip = document.createElement('span');
           plChip.className = 'badge-playlist-chip';
           plChip.textContent = video.playlistName;
@@ -4823,21 +4958,27 @@
         const infoBlock = document.createElement('div');
         const titleEl = document.createElement('h3');
         titleEl.className = 'card-title';
-        titleEl.textContent = video.title;
-        titleEl.onclick = () => openVideoInCinema(video.id);
+        titleEl.innerHTML = getSearchTokens(searchQuery).length > 0
+          ? highlightTextHtml(video.title, searchQuery)
+          : escapeHtml(video.title);
+        titleEl.onclick = openHandler;
         infoBlock.appendChild(titleEl);
 
         if (video.author) {
           const authorEl = document.createElement('div');
           authorEl.className = 'card-author';
-          authorEl.textContent = video.author;
+          authorEl.innerHTML = getSearchTokens(searchQuery).length > 0
+            ? highlightTextHtml(video.author, searchQuery)
+            : escapeHtml(video.author);
           infoBlock.appendChild(authorEl);
         }
 
         const metaRow = document.createElement('div');
         metaRow.className = 'card-meta-row';
 
-        if (completed) {
+        if (options.isGuideExtra) {
+          metaRow.innerHTML = `<span>Fonte do Guia de Estudos</span><span>Guia</span>`;
+        } else if (completed) {
           metaRow.innerHTML = `<span>Assistido</span><span>${video.duration > 0 ? formatTime(video.duration) : 'Concluído'}</span>`;
         } else if (inProgress) {
           const elapsedStr = video.duration > 0
@@ -4868,41 +5009,43 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
             <span>Continuar (${formatTime(video.currentTime)})</span>
           `;
-          primaryBtn.onclick = () => openVideoInCinema(video.id);
+          primaryBtn.onclick = openHandler;
         } else {
           primaryBtn.innerHTML = `
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
             <span>Assistir</span>
           `;
-          primaryBtn.onclick = () => openVideoInCinema(video.id);
+          primaryBtn.onclick = openHandler;
         }
         actions.appendChild(primaryBtn);
 
-        const doneBtn = document.createElement('button');
-        doneBtn.type = 'button';
-        doneBtn.className = 'btn-card-icon' + (completed ? ' watched' : '');
-        doneBtn.title = completed ? 'Assistido (clique para desmarcar)' : 'Marcar como assistido';
-        doneBtn.innerHTML = `
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        `;
-        doneBtn.onclick = () => toggleWatched(video.id);
-        actions.appendChild(doneBtn);
-
-        if (inProgress || completed) {
-          const resetBtn = document.createElement('button');
-          resetBtn.type = 'button';
-          resetBtn.className = 'btn-card-icon';
-          resetBtn.title = 'Resetar progresso (00:00)';
-          resetBtn.innerHTML = `
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="1 4 1 10 7 10"></polyline>
-              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        if (!options.isGuideExtra) {
+          const doneBtn = document.createElement('button');
+          doneBtn.type = 'button';
+          doneBtn.className = 'btn-card-icon' + (completed ? ' watched' : '');
+          doneBtn.title = completed ? 'Assistido (clique para desmarcar)' : 'Marcar como assistido';
+          doneBtn.innerHTML = `
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
           `;
-          resetBtn.onclick = () => restartVideo(video.id, false);
-          actions.appendChild(resetBtn);
+          doneBtn.onclick = () => toggleWatched(video.id);
+          actions.appendChild(doneBtn);
+
+          if (inProgress || completed) {
+            const resetBtn = document.createElement('button');
+            resetBtn.type = 'button';
+            resetBtn.className = 'btn-card-icon';
+            resetBtn.title = 'Resetar progresso (00:00)';
+            resetBtn.innerHTML = `
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="1 4 1 10 7 10"></polyline>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+              </svg>
+            `;
+            resetBtn.onclick = () => restartVideo(video.id, false);
+            actions.appendChild(resetBtn);
+          }
         }
 
         const extLink = document.createElement('a');
@@ -4920,18 +5063,20 @@
         `;
         actions.appendChild(extLink);
 
-        const delBtn = document.createElement('button');
-        delBtn.type = 'button';
-        delBtn.className = 'btn-card-icon danger';
-        delBtn.title = 'Remover vídeo';
-        delBtn.innerHTML = `
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          </svg>
-        `;
-        delBtn.onclick = () => removeVideo(video.id);
-        actions.appendChild(delBtn);
+        if (!options.isGuideExtra) {
+          const delBtn = document.createElement('button');
+          delBtn.type = 'button';
+          delBtn.className = 'btn-card-icon danger';
+          delBtn.title = 'Remover vídeo';
+          delBtn.innerHTML = `
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          `;
+          delBtn.onclick = () => removeVideo(video.id);
+          actions.appendChild(delBtn);
+        }
 
         body.appendChild(infoBlock);
         body.appendChild(actions);
@@ -4976,12 +5121,17 @@
 
         const title = document.createElement('div');
         title.className = 'yt-playlist-title';
-        title.textContent = ytpl.name;
+        title.innerHTML = getSearchTokens(searchQuery).length > 0
+          ? highlightTextHtml(ytpl.name, searchQuery)
+          : escapeHtml(ytpl.name);
         title.onclick = () => openYoutubePlaylistInCinema(ytpl, parentLesson);
 
         const author = document.createElement('div');
         author.className = 'yt-playlist-author';
-        author.textContent = ytpl.author || 'Playlist Oficial YouTube';
+        const authorLabel = ytpl.author || 'Playlist Oficial YouTube';
+        author.innerHTML = getSearchTokens(searchQuery).length > 0
+          ? highlightTextHtml(authorLabel, searchQuery)
+          : escapeHtml(authorLabel);
 
         info.appendChild(title);
         info.appendChild(author);
@@ -5079,22 +5229,26 @@
           updatePlayerMovePlaylistSelect(currentActive);
         }
 
-        const qNorm = normalizeSearchText(searchQuery.trim());
-        btnClearSearch.classList.toggle('visible', searchQuery.trim().length > 0);
+        const rawSearchTrim = searchQuery.trim();
+        const qTokens = getSearchTokens(rawSearchTrim);
+        const hasSearch = qTokens.length > 0;
+        btnClearSearch.classList.toggle('visible', rawSearchTrim.length > 0);
 
         const matchesVideoSearch = (v) => {
-          if (!qNorm) return true;
-          return (
-            normalizeSearchText(v.title).includes(qNorm) ||
-            normalizeSearchText(v.author).includes(qNorm) ||
-            normalizeSearchText(v.playlistName).includes(qNorm) ||
-            normalizeSearchText(v.tag).includes(qNorm)
-          );
+          if (!hasSearch) return true;
+          return matchesTokensInText([v.title, v.author, v.playlistName, v.tag].join(' '), qTokens);
+        };
+
+        const matchesYtPlaylistSearch = (yp, plMeta) => {
+          if (!hasSearch) return true;
+          return matchesTokensInText([yp.name, yp.author, plMeta && plMeta.name, plMeta && plMeta.tag].join(' '), qTokens);
         };
 
         const matchesCategoryFilter = (categoryVal) => {
           return activeCategory === 'all' || categoryVal === activeCategory;
         };
+
+        const renderSearchableHtml = (str) => (hasSearch ? highlightTextHtml(str, rawSearchTrim) : escapeHtml(str));
 
         // 1. Prateleira "Continuar Assistindo"
         let continueVideos = state.videos.filter((v) => isVideoInProgress(v));
@@ -5108,13 +5262,13 @@
             return matchesCategoryFilter(plCat);
           });
         }
-        if (qNorm) {
+        if (hasSearch) {
           continueVideos = continueVideos.filter(matchesVideoSearch);
         }
         continueVideos.sort((a, b) => (b.lastWatched || 0) - (a.lastWatched || 0));
 
         const showContinueSection = activeFilter === 'continue' ||
-          (activeFilter === 'all' && activeCategory === 'all' && !qNorm && continueVideos.length > 0);
+          (activeFilter === 'all' && activeCategory === 'all' && !hasSearch && continueVideos.length > 0);
         sectionContinue.style.display = showContinueSection ? 'flex' : 'none';
         countContinue.textContent = continueVideos.length;
         shelfContinue.innerHTML = '';
@@ -5130,8 +5284,86 @@
         const sortedPlaylists = getSortedPlaylistEntries();
         const totalCourseLessons = sortedPlaylists.filter((p) => typeof p.lessonNumber === 'number').length || sortedPlaylists.length;
         let visibleLessonsCount = 0;
-        let visibleVideosTotal = 0;
-        let visiblePlaylistsTotal = 0;
+        const displayedVideoIds = new Set();
+        const displayedPlaylistIds = new Set();
+        const directVideoMatches = [];
+        const directPlaylistMatches = [];
+        const matchedTopicRefs = [];
+
+        if (hasSearch) {
+          const seenDirectVidIds = new Set();
+          state.videos.forEach((v) => {
+            if (activeFilter.startsWith('playlist:') && v.playlistId !== activeFilter.replace('playlist:', '')) return;
+            if (activeCategory !== 'all') {
+              const plCat = v.playlistId && state.playlists[v.playlistId] ? state.playlists[v.playlistId].category : v.category;
+              if (!matchesCategoryFilter(plCat)) return;
+            }
+            if (matchesVideoSearch(v) && !seenDirectVidIds.has(v.id)) {
+              seenDirectVidIds.add(v.id);
+              directVideoMatches.push({ isGuideExtra: false, video: v });
+              displayedVideoIds.add(v.id);
+            }
+          });
+
+          const seenDirectPlIds = new Set();
+          sortedPlaylists.forEach((plMeta) => {
+            if (activeFilter.startsWith('playlist:') && plMeta.id !== activeFilter.replace('playlist:', '')) return;
+            if (!matchesCategoryFilter(plMeta.category)) return;
+            const ytpls = Array.isArray(plMeta.youtubePlaylists) ? plMeta.youtubePlaylists : [];
+            ytpls.forEach((yp) => {
+              if (!seenDirectPlIds.has(yp.listId) && matchesYtPlaylistSearch(yp, plMeta)) {
+                seenDirectPlIds.add(yp.listId);
+                directPlaylistMatches.push({ ytpl: yp, parentLesson: plMeta });
+                displayedPlaylistIds.add(yp.listId);
+              }
+            });
+          });
+
+          if ((activeFilter === 'all' || activeFilter === '') && activeCategory === 'all' && Array.isArray(DIDACTIC_EXTRA_SOURCES)) {
+            DIDACTIC_EXTRA_SOURCES.forEach((group) => {
+              (group.items || []).forEach((item) => {
+                const textToMatch = [item.name, item.author, item.desc, item.typeLabel, group.groupTitle].join(' ');
+                if (!matchesTokensInText(textToMatch, qTokens)) return;
+                if (item.kind === 'video' && item.videoId && !seenDirectVidIds.has(item.videoId)) {
+                  seenDirectVidIds.add(item.videoId);
+                  directVideoMatches.push({
+                    isGuideExtra: true,
+                    item,
+                    video: {
+                      id: item.videoId,
+                      title: item.name,
+                      author: item.author || 'YouTube',
+                      playlistName: `Guia • ${item.typeLabel || 'Fonte'}`,
+                      tag: item.typeLabel || 'Fonte Complementar',
+                      thumb: `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg`,
+                      url: `https://www.youtube.com/watch?v=${item.videoId}`
+                    }
+                  });
+                  displayedVideoIds.add(item.videoId);
+                } else if (item.kind === 'playlist' && item.listId && !seenDirectPlIds.has(item.listId)) {
+                  seenDirectPlIds.add(item.listId);
+                  const yp = {
+                    id: `ytpl_${item.listId}`,
+                    listId: item.listId,
+                    name: item.name,
+                    author: item.author,
+                    url: `https://www.youtube.com/playlist?list=${item.listId}`
+                  };
+                  const parentMeta = {
+                    name: group.groupTitle,
+                    tag: item.typeLabel,
+                    summary: item.desc,
+                    historic: 'Fonte audiovisual complementar do Guia de Estudos (curadoria transversal).',
+                    concepts: `${item.typeLabel} • Canal/Curadoria: ${item.author}`,
+                    listeningFocus: 'Utilize este registro para contextualização histórica, anotações de escuta e pesquisa de repertório.'
+                  };
+                  directPlaylistMatches.push({ ytpl: yp, parentLesson: parentMeta });
+                  displayedPlaylistIds.add(item.listId);
+                }
+              });
+            });
+          }
+        }
 
         if (activeFilter === 'all' || activeFilter.startsWith('playlist:')) {
           const targetPlaylists = activeFilter.startsWith('playlist:')
@@ -5146,34 +5378,42 @@
               .sort((a, b) => (a.playlistOrder ?? 0) - (b.playlistOrder ?? 0));
             const allPlYtPlaylists = Array.isArray(plMeta.youtubePlaylists) ? plMeta.youtubePlaylists : [];
 
-            const lessonMetaMatch = !qNorm ||
-              normalizeSearchText(plMeta.block).includes(qNorm) ||
-              normalizeSearchText(plMeta.name).includes(qNorm) ||
-              normalizeSearchText(plMeta.title).includes(qNorm) ||
-              normalizeSearchText(plMeta.tag).includes(qNorm) ||
-              normalizeSearchText(plMeta.summary).includes(qNorm) ||
-              normalizeSearchText(plMeta.historic).includes(qNorm) ||
-              normalizeSearchText(plMeta.concepts).includes(qNorm) ||
-              normalizeSearchText(plMeta.listeningFocus).includes(qNorm);
+            const lessonMetaMatch = !hasSearch || matchesTokensInText([
+              plMeta.block,
+              plMeta.name,
+              plMeta.title,
+              plMeta.tag,
+              plMeta.summary,
+              plMeta.historic,
+              plMeta.concepts,
+              plMeta.listeningFocus
+            ].join(' '), qTokens);
 
-            const filteredVideos = lessonMetaMatch
-              ? allPlVideos
-              : allPlVideos.filter(matchesVideoSearch);
-            const filteredYtPlaylists = lessonMetaMatch
-              ? allPlYtPlaylists
-              : allPlYtPlaylists.filter((yp) => normalizeSearchText(yp.name).includes(qNorm) || normalizeSearchText(yp.author).includes(qNorm));
+            const directPlVideos = hasSearch ? allPlVideos.filter(matchesVideoSearch) : allPlVideos;
+            const directPlYtPlaylists = hasSearch
+              ? allPlYtPlaylists.filter((yp) => matchesYtPlaylistSearch(yp, plMeta))
+              : allPlYtPlaylists;
+            const hasDirectMediaMatch = directPlVideos.length > 0 || directPlYtPlaylists.length > 0;
 
-            if (qNorm && !lessonMetaMatch && filteredVideos.length === 0 && filteredYtPlaylists.length === 0) {
+            if (hasSearch && !lessonMetaMatch && !hasDirectMediaMatch) {
               return;
             }
 
+            const filteredVideos = hasSearch
+              ? (hasDirectMediaMatch ? directPlVideos : (lessonMetaMatch ? allPlVideos : []))
+              : allPlVideos;
+            const filteredYtPlaylists = hasSearch
+              ? (hasDirectMediaMatch ? directPlYtPlaylists : (lessonMetaMatch ? allPlYtPlaylists : []))
+              : allPlYtPlaylists;
+
             visibleLessonsCount++;
-            visibleVideosTotal += filteredVideos.length;
-            visiblePlaylistsTotal += filteredYtPlaylists.length;
+            filteredVideos.forEach((v) => displayedVideoIds.add(v.id));
+            filteredYtPlaylists.forEach((yp) => displayedPlaylistIds.add(yp.listId));
 
             const completedInLesson = allPlVideos.filter((v) => isVideoCompleted(v)).length;
 
             const section = document.createElement('section');
+            section.id = `lesson-card-${plMeta.id}`;
             section.className = 'lesson-glass-card' + (activeFilter.startsWith('playlist:') ? ' focus-highlight' : '');
 
             const header = document.createElement('div');
@@ -5191,7 +5431,7 @@
 
             const titleEl = document.createElement('h2');
             titleEl.className = 'shelf-title';
-            titleEl.textContent = plMeta.title || plMeta.name;
+            titleEl.innerHTML = renderSearchableHtml(plMeta.title || plMeta.name);
             titleGroup.appendChild(titleEl);
 
             if (plMeta.tag) {
@@ -5267,7 +5507,7 @@
             if (plMeta.block) {
               const blockEl = document.createElement('div');
               blockEl.className = 'lesson-block-eyebrow';
-              blockEl.textContent = plMeta.block;
+              blockEl.innerHTML = renderSearchableHtml(plMeta.block);
               section.appendChild(blockEl);
             }
 
@@ -5276,7 +5516,7 @@
             if (plMeta.summary) {
               const sBox = document.createElement('div');
               sBox.className = 'lesson-summary-box';
-              sBox.innerHTML = `<span class="pedagogy-label">Sobre este Tópico — Visão Geral</span><p>${escapeHtml(plMeta.summary)}</p>`;
+              sBox.innerHTML = `<span class="pedagogy-label">Sobre este Tópico — Visão Geral</span><p>${renderSearchableHtml(plMeta.summary)}</p>`;
               section.appendChild(sBox);
             }
 
@@ -5287,19 +5527,19 @@
               if (plMeta.historic) {
                 const hBox = document.createElement('div');
                 hBox.className = 'pedagogy-box';
-                hBox.innerHTML = `<span class="pedagogy-label">Recorte Histórico &amp; Territorial</span><p>${escapeHtml(plMeta.historic)}</p>`;
+                hBox.innerHTML = `<span class="pedagogy-label">Recorte Histórico &amp; Territorial</span><p>${renderSearchableHtml(plMeta.historic)}</p>`;
                 pedGrid.appendChild(hBox);
               }
               if (plMeta.concepts) {
                 const cBox = document.createElement('div');
                 cBox.className = 'pedagogy-box';
-                cBox.innerHTML = `<span class="pedagogy-label">Conceitos &amp; Organologia</span><p>${escapeHtml(plMeta.concepts)}</p>`;
+                cBox.innerHTML = `<span class="pedagogy-label">Conceitos &amp; Organologia</span><p>${renderSearchableHtml(plMeta.concepts)}</p>`;
                 pedGrid.appendChild(cBox);
               }
               if (plMeta.listeningFocus) {
                 const lBox = document.createElement('div');
                 lBox.className = 'pedagogy-box pedagogy-box-full';
-                lBox.innerHTML = `<span class="pedagogy-label">Guia de Escuta &amp; O que Observar</span><p>${escapeHtml(plMeta.listeningFocus)}</p>`;
+                lBox.innerHTML = `<span class="pedagogy-label">Guia de Escuta &amp; O que Observar</span><p>${renderSearchableHtml(plMeta.listeningFocus)}</p>`;
                 pedGrid.appendChild(lBox);
               }
               section.appendChild(pedGrid);
@@ -5329,7 +5569,7 @@
               section.appendChild(plGrid);
             }
 
-            if (filteredVideos.length === 0 && filteredYtPlaylists.length === 0) {
+            if (filteredVideos.length === 0 && filteredYtPlaylists.length === 0 && !hasSearch) {
               const emptyPl = document.createElement('div');
               emptyPl.className = 'empty-shelf';
               emptyPl.textContent = 'Esta coleção está vazia no momento.';
@@ -5337,7 +5577,106 @@
             }
 
             playlistsShelvesContainer.appendChild(section);
+            if (hasSearch) {
+              matchedTopicRefs.push({
+                id: plMeta.id,
+                lessonNumber: plMeta.lessonNumber,
+                title: plMeta.title || plMeta.name,
+                sectionEl: section
+              });
+            }
           });
+        }
+
+        if (hasSearch && (directVideoMatches.length > 0 || directPlaylistMatches.length > 0 || matchedTopicRefs.length > 0)) {
+          const banner = document.createElement('section');
+          banner.className = 'search-results-banner';
+          banner.setAttribute('aria-label', 'Resultados da Pesquisa');
+
+          const bannerHeader = document.createElement('div');
+          bannerHeader.className = 'search-results-header';
+
+          const bannerTitleWrap = document.createElement('div');
+          bannerTitleWrap.innerHTML = `
+            <div class="search-results-title">
+              <span>Resultados para “${escapeHtml(rawSearchTrim)}”</span>
+            </div>
+            <div class="search-results-meta">
+              ${directVideoMatches.length} vídeo(s) • ${directPlaylistMatches.length} playlist(s) • ${matchedTopicRefs.length} tópico(s) relacionados
+            </div>
+          `;
+
+          const clearBtnInline = document.createElement('button');
+          clearBtnInline.type = 'button';
+          clearBtnInline.className = 'btn-ghost';
+          clearBtnInline.textContent = 'Limpar Pesquisa';
+          clearBtnInline.onclick = () => {
+            searchQuery = '';
+            searchInput.value = '';
+            renderAll();
+          };
+
+          bannerHeader.appendChild(bannerTitleWrap);
+          bannerHeader.appendChild(clearBtnInline);
+          banner.appendChild(bannerHeader);
+
+          if (matchedTopicRefs.length > 0) {
+            const pillsWrap = document.createElement('div');
+            pillsWrap.className = 'search-topic-pills';
+            matchedTopicRefs.forEach((t) => {
+              const pill = document.createElement('button');
+              pill.type = 'button';
+              pill.className = 'search-topic-pill';
+              const numStr = typeof t.lessonNumber === 'number'
+                ? `Tópico ${t.lessonNumber < 10 ? '0' + t.lessonNumber : t.lessonNumber} · `
+                : '';
+              pill.textContent = `${numStr}${t.title}`;
+              pill.onclick = () => {
+                if (t.sectionEl && typeof t.sectionEl.scrollIntoView === 'function') {
+                  t.sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              };
+              pillsWrap.appendChild(pill);
+            });
+            banner.appendChild(pillsWrap);
+          }
+
+          if (directVideoMatches.length > 0) {
+            const vidLabel = document.createElement('div');
+            vidLabel.className = 'lesson-sublabel';
+            vidLabel.innerHTML = `<span>Vídeos Encontrados (${directVideoMatches.length})</span>`;
+            banner.appendChild(vidLabel);
+
+            const vidGrid = document.createElement('div');
+            vidGrid.className = 'cards-grid';
+            directVideoMatches.forEach((entry) => {
+              const cardOpts = entry.isGuideExtra
+                ? { onOpen: () => openOrPlayGuideVideo(entry.item), isGuideExtra: true }
+                : {};
+              vidGrid.appendChild(createVideoCard(entry.video, 'search', cardOpts));
+            });
+            banner.appendChild(vidGrid);
+          }
+
+          if (directPlaylistMatches.length > 0) {
+            const plLabel = document.createElement('div');
+            plLabel.className = 'lesson-sublabel';
+            plLabel.innerHTML = `<span>Playlists Encontradas (${directPlaylistMatches.length})</span>`;
+            banner.appendChild(plLabel);
+
+            const plGrid = document.createElement('div');
+            plGrid.className = 'yt-playlists-grid';
+            directPlaylistMatches.forEach((entry) => {
+              plGrid.appendChild(createYtPlaylistCard(entry.ytpl, entry.parentLesson));
+            });
+            banner.appendChild(plGrid);
+          }
+
+          if (playlistsShelvesContainer.firstChild) {
+            playlistsShelvesContainer.insertBefore(banner, playlistsShelvesContainer.firstChild);
+          } else {
+            playlistsShelvesContainer.appendChild(banner);
+          }
         }
 
         // 3. Prateleira "Minha Lista (Para Assistir)"
@@ -5346,11 +5685,11 @@
         if (activeCategory !== 'all') {
           standaloneVideos = standaloneVideos.filter((v) => matchesCategoryFilter(v.category));
         }
-        if (qNorm) {
+        if (hasSearch) {
           standaloneVideos = standaloneVideos.filter(matchesVideoSearch);
         }
 
-        const shouldRenderWatchlist = activeFilter === 'watchlist' || (showWatchlist && standaloneVideos.length > 0);
+        const shouldRenderWatchlist = activeFilter === 'watchlist' || (showWatchlist && standaloneVideos.length > 0 && !hasSearch);
         sectionWatchlist.style.display = shouldRenderWatchlist ? 'flex' : 'none';
         if (shouldRenderWatchlist) {
           countWatchlist.textContent = standaloneVideos.length;
@@ -5358,8 +5697,10 @@
           if (standaloneVideos.length === 0) {
             shelfWatchlist.innerHTML = `<div class="empty-shelf">Nenhum vídeo avulso na Minha Lista. Cole um link na barra lateral ou use "Mover" no player.</div>`;
           } else {
-            standaloneVideos.forEach((v) => shelfWatchlist.appendChild(createVideoCard(v, 'watchlist')));
-            visibleVideosTotal += standaloneVideos.length;
+            standaloneVideos.forEach((v) => {
+              shelfWatchlist.appendChild(createVideoCard(v, 'watchlist'));
+              displayedVideoIds.add(v.id);
+            });
           }
         }
 
@@ -5374,11 +5715,11 @@
             return matchesCategoryFilter(plCat);
           });
         }
-        if (qNorm) {
+        if (hasSearch) {
           completedVideos = completedVideos.filter(matchesVideoSearch);
         }
 
-        const shouldRenderCompleted = activeFilter === 'completed' || (showCompleted && completedVideos.length > 0 && !qNorm);
+        const shouldRenderCompleted = activeFilter === 'completed' || (showCompleted && completedVideos.length > 0 && !hasSearch);
         sectionCompleted.style.display = shouldRenderCompleted ? 'flex' : 'none';
         if (shouldRenderCompleted) {
           countCompleted.textContent = completedVideos.length;
@@ -5393,13 +5734,16 @@
         // Atualiza contadores e estado vazio
         visibleCountEl.textContent = visibleLessonsCount;
         totalLessonsCountEl.textContent = totalCourseLessons;
-        visibleItemsCountEl.textContent = visibleVideosTotal;
-        visiblePlaylistsCountEl.textContent = visiblePlaylistsTotal;
+        visibleItemsCountEl.textContent = displayedVideoIds.size;
+        visiblePlaylistsCountEl.textContent = displayedPlaylistIds.size;
 
-        const nothingVisible = (activeFilter === 'all' && visibleLessonsCount === 0 && standaloneVideos.length === 0 && continueVideos.length === 0) ||
-          (activeFilter === 'continue' && continueVideos.length === 0 && qNorm) ||
-          (activeFilter === 'watchlist' && standaloneVideos.length === 0 && qNorm) ||
-          (activeFilter === 'completed' && completedVideos.length === 0 && qNorm);
+        const hasAnyPlaylistContainerResult = visibleLessonsCount > 0 || directVideoMatches.length > 0 || directPlaylistMatches.length > 0;
+        const nothingVisible = (hasSearch && !hasAnyPlaylistContainerResult && standaloneVideos.length === 0 && continueVideos.length === 0) ||
+          (activeFilter === 'all' && !hasAnyPlaylistContainerResult && standaloneVideos.length === 0 && continueVideos.length === 0) ||
+          (activeFilter.startsWith('playlist:') && !hasAnyPlaylistContainerResult) ||
+          (activeFilter === 'continue' && continueVideos.length === 0 && hasSearch) ||
+          (activeFilter === 'watchlist' && standaloneVideos.length === 0 && hasSearch) ||
+          (activeFilter === 'completed' && completedVideos.length === 0 && hasSearch);
         emptyStateEl.classList.toggle('visible', nothingVisible);
       }
 
@@ -6180,9 +6524,35 @@
 
       document.getElementById('btn-toggle-theme').addEventListener('click', toggleTheme);
 
-      searchInput.addEventListener('input', (e) => {
-        searchQuery = e.target.value;
+      const handleSearchInputChange = () => {
+        searchQuery = searchInput.value;
+        if (searchQuery.trim().length > 0) {
+          activeFilter = 'all';
+          activeCategory = 'all';
+          if (didacticGuideSection && didacticGuideSection.classList.contains('open') && typeof toggleDidacticGuide === 'function') {
+            toggleDidacticGuide(false);
+          }
+        }
         renderAll();
+      };
+
+      searchInput.addEventListener('input', handleSearchInputChange);
+      searchInput.addEventListener('search', handleSearchInputChange);
+      searchInput.addEventListener('change', handleSearchInputChange);
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchQuery) {
+          e.preventDefault();
+          searchQuery = '';
+          searchInput.value = '';
+          renderAll();
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          handleSearchInputChange();
+          const scrollTarget = playlistsShelvesContainer || emptyStateEl;
+          if (scrollTarget && typeof scrollTarget.scrollIntoView === 'function') {
+            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
       });
 
       btnClearSearch.addEventListener('click', () => {
