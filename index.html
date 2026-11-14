@@ -2407,15 +2407,20 @@
       }
 
       .header-inner {
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 0.45rem;
       }
 
       .header-left {
-        gap: 0.45rem;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 0.55rem;
       }
 
       .header-right {
+        width: 100%;
+        display: flex;
+        align-items: center;
         gap: 0.4rem;
       }
 
@@ -2433,15 +2438,26 @@
         font-size: 1.12rem;
       }
 
-      .mobile-menu-toggle,
-      .btn-header-guide {
+      .mobile-menu-toggle {
         padding: 0.42rem 0.6rem;
         font-size: 0.76rem;
+        flex-shrink: 0;
+      }
+
+      .btn-header-guide,
+      #btn-header-install-pwa {
+        flex: 1 1 auto;
+        justify-content: center;
+        padding: 0.42rem 0.55rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
       }
 
       .btn-icon-header {
         width: 34px;
         height: 34px;
+        flex: 0 0 34px;
+        margin-left: auto;
       }
 
       .main-container {
