@@ -1120,6 +1120,10 @@
       gap: 1.05rem;
     }
 
+    .main-container.guide-only-mode > :not(#didactic-guide-section) {
+      display: none !important;
+    }
+
     .guide-header {
       display: flex;
       flex-wrap: wrap;
@@ -2725,21 +2729,23 @@
           <div class="guide-title-group">
             <span class="guide-eyebrow">Guia de Estudos • Para aprender e ensinar</span>
             <h2 class="guide-title">Guia de Estudos, Escuta Ativa &amp; Referências</h2>
-            <p class="guide-subtitle">Percurso comentado em 18 tópicos • Curadoria de documentários, fontes primárias e playlists</p>
+            <p class="guide-subtitle">Percurso comentado em 18 tópicos • Guia de uso, personalização e compartilhamento do app, escuta ativa, fontes e bibliografia</p>
           </div>
 
-          <button type="button" id="btn-close-guide" class="btn-ghost" title="Recolher Guia de Estudos">
+          <button type="button" id="btn-close-guide" class="btn-ghost" title="Fechar o Guia e voltar para os tópicos e vídeos">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
               stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="18 15 12 9 6 15"></polyline>
+              <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
-            <span>Recolher Guia</span>
+            <span>Voltar ao Acervo</span>
           </button>
         </div>
 
         <div class="guide-tabs-bar" role="tablist" aria-label="Seções do Guia de Estudos">
           <button type="button" class="guide-tab-btn active" data-guide-tab="ementa" role="tab"
             aria-selected="true">Apresentação &amp; 4 Blocos</button>
+          <button type="button" class="guide-tab-btn" data-guide-tab="como-usar" role="tab"
+            aria-selected="false">Como Usar o App &amp; Funcionalidades</button>
           <button type="button" class="guide-tab-btn" data-guide-tab="escuta" role="tab"
             aria-selected="false">Como Estudar &amp; Escuta Ativa</button>
           <button type="button" class="guide-tab-btn" data-guide-tab="fontes" role="tab"
@@ -2798,6 +2804,54 @@
               <span class="guide-block-tag">Tópicos 15 a 18</span>
               <h4>Bloco IV — Culturas Periféricas, Hibridismos, Música Instrumental e Infância</h4>
               <p>Bailes Black Rio e Samba-Rock, Funk Carioca e Hip-Hop Nacional, Manguebeat e cena contemporânea, Música Instrumental (Bandas de Música, Fanfarras, Orquestras Populares e Jazz Brasileiro) e Música Infantil, Acalantos e Brinquedos Cantados.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA: COMO USAR O APP & FUNCIONALIDADES -->
+        <div id="guide-panel-como-usar" class="guide-tab-panel">
+          <div class="guide-grid-2">
+            <div class="guide-info-card">
+              <h3>1. Navegação, Pesquisa e Player de Estudo</h3>
+              <ul>
+                <li><strong>Biblioteca &amp; Tópicos na Barra Esquerda:</strong> navegue entre <em>Acervo Completo</em>, <em>Continuar Assistindo</em>, <em>Minha Lista</em>, <em>Assistidos / Concluídos</em> ou abra diretamente qualquer um dos 18 tópicos e coleções personalizadas.</li>
+                <li><strong>Busca em Tempo Real:</strong> pesquise na caixa do topo por título de tópico, tema, mestre, instrumento, conceito histórico, região ou nome de vídeo/playlist.</li>
+                <li><strong>Player Integrado + Ficha Pedagógica:</strong> clique em <em>Assistir</em>, <em>Tocar no Player</em> ou <em>Reproduzir Tópico</em> para abrir o vídeo no player no topo junto com o resumo, recorte histórico, organologia e guia de escuta.</li>
+                <li><strong>Controles &amp; Extração de Playlists:</strong> use os controles <code>-15s</code> / <code>+15s</code>, próximo item da fila, marcação manual de concluído, <em>Tela Cheia</em> ou clique em <em>Extrair Faixas</em> para converter playlists do YouTube em vídeos individuais com progresso próprio.</li>
+              </ul>
+            </div>
+
+            <div class="guide-info-card">
+              <h3>2. Personalização, Edição e Compartilhamento com Alunos ou Colegas</h3>
+              <ul>
+                <li><strong>Adicionar Playlists &amp; Vídeos do YouTube:</strong> no rodapé da barra lateral, cole o link de qualquer vídeo ou playlist pública do YouTube (ou clique em <em>Colar</em>), defina um nome opcional para a coleção e clique em <em>Adicionar</em> para criar novos tópicos e listas.</li>
+                <li><strong>Editar, Renomear, Mover &amp; Excluir:</strong> use o botão <code>⋯</code> na barra lateral ou <em>Alterar</em> no cabeçalho de cada tópico para renomear ou excluir coleções (com opção <em>Desfazer</em>). No player, use o seletor <em>Mover</em> para reorganizar vídeos entre <em>Minha Lista</em> e qualquer tópico.</li>
+                <li><strong>Exportar &amp; Importar JSON (Compartilhar Curadorias):</strong> clique em <em>Exportar JSON</em> para baixar um arquivo com todas as suas playlists, vídeos adicionados e personalizações. Compartilhe esse arquivo com alunos, turmas ou colegas, que podem carregá-lo pelo botão <em>Importar JSON</em> no MPBTube deles.</li>
+                <li><strong>Restaurar / Atualizar Acervo:</strong> quando desejar recuperar vídeos removidos ou receber atualizações da curadoria base dos 18 tópicos, clique em <em>Restaurar / Atualizar Acervo</em> sem perder suas coleções extras.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="guide-grid-4">
+            <div class="guide-block-card">
+              <span class="guide-block-tag">Uso Pedagógico &amp; Curadoria</span>
+              <h4>Crie e Compartilhe Roteiros com Alunos e Colegas</h4>
+              <p>Monte seleções temáticas próprias para aulas, oficinas, grupos de pesquisa ou estudo individual, exporte o backup em JSON e envie para turmas ou colegas importarem com um clique.</p>
+            </div>
+            <div class="guide-block-card">
+              <span class="guide-block-tag">Edição Flexível no App</span>
+              <h4>Adicione Playlists, Mova, Renomeie ou Exclua</h4>
+              <p>O MPBTube funciona como caderno vivo: incorpore novos documentários ou shows do YouTube por URL, renomeie coleções e reorganize vídeos entre tópicos pelo menu <em>Mover</em>.</p>
+            </div>
+            <div class="guide-block-card">
+              <span class="guide-block-tag">Progresso &amp; Retomada</span>
+              <h4>Salvamento a cada 2s e portabilidade via JSON</h4>
+              <p>Durante a reprodução, o app salva automaticamente o segundo exato a cada 2 segundos no navegador e conclui o vídeo ao atingir 95%. Use <em>Exportar JSON</em> para migrar seu progresso e coleções para outro computador.</p>
+            </div>
+            <div class="guide-block-card">
+              <span class="guide-block-tag">Aplicativo Instalável (PWA)</span>
+              <h4>Tema Claro/Escuro e Instalação no Celular ou PC</h4>
+              <p>Alterne entre modo escuro e claro no ícone do cabeçalho e utilize <em>Instalar App</em> (ou <em>Adicionar à Tela de Início</em> no navegador móvel) para usar o MPBTube como aplicativo dedicado.</p>
             </div>
           </div>
         </div>
@@ -4319,10 +4373,15 @@
           }
         ];
 
+        const isGuideOpen = Boolean(didacticGuideSection && didacticGuideSection.classList.contains('open'));
+        if (sidebarGuideRow) {
+          sidebarGuideRow.classList.toggle('active', isGuideOpen);
+        }
+
         sidebarNavList.innerHTML = '';
         navItems.forEach((item) => {
           const row = document.createElement('div');
-          row.className = 'sidebar-item-row' + (activeFilter === item.id ? ' active' : '');
+          row.className = 'sidebar-item-row' + (!isGuideOpen && activeFilter === item.id ? ' active' : '');
 
           const btn = document.createElement('button');
           btn.type = 'button';
@@ -4338,6 +4397,9 @@
             activeFilter = item.id;
             if (item.id === 'all') activeCategory = 'all';
             closeMobileSidebar();
+            if (didacticGuideSection && didacticGuideSection.classList.contains('open')) {
+              toggleDidacticGuide(false);
+            }
             renderAll();
             const focusTarget = item.id === 'continue'
               ? sectionContinue
@@ -4368,7 +4430,7 @@
           const filterKey = `playlist:${pl.id}`;
 
           const row = document.createElement('div');
-          row.className = 'sidebar-item-row' + (activeFilter === filterKey ? ' active' : '');
+          row.className = 'sidebar-item-row' + (!isGuideOpen && activeFilter === filterKey ? ' active' : '');
 
           const selectBtn = document.createElement('button');
           selectBtn.type = 'button';
@@ -4392,6 +4454,9 @@
             activeFilter = filterKey;
             activeCategory = 'all';
             closeMobileSidebar();
+            if (didacticGuideSection && didacticGuideSection.classList.contains('open')) {
+              toggleDidacticGuide(false);
+            }
             renderAll();
             focusRightContentOnPlaylistSelect(playlistsShelvesContainer);
           };
@@ -5198,6 +5263,10 @@
         const video = state.videos.find((v) => v.id === videoId);
         if (!video) return;
 
+        if (didacticGuideSection && didacticGuideSection.classList.contains('open')) {
+          toggleDidacticGuide(false);
+        }
+
         if (activePlayMode === 'video' && activeVideoId && activeVideoId !== videoId) {
           syncPlaybackProgress(true);
         }
@@ -5247,6 +5316,10 @@
 
       function openYoutubePlaylistInCinema(ytpl, parentLesson) {
         if (!ytpl || !ytpl.listId) return;
+
+        if (didacticGuideSection && didacticGuideSection.classList.contains('open')) {
+          toggleDidacticGuide(false);
+        }
 
         if (activePlayMode === 'video' && activeVideoId) {
           syncPlaybackProgress(true);
@@ -6026,6 +6099,17 @@
           : !didacticGuideSection.classList.contains('open');
 
         didacticGuideSection.classList.toggle('open', shouldOpen);
+        const mainEl = didacticGuideSection.closest('.main-container');
+        if (mainEl) {
+          mainEl.classList.toggle('guide-only-mode', shouldOpen);
+        }
+
+        if (shouldOpen && ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+          try {
+            ytPlayer.pauseVideo();
+          } catch (e) { }
+        }
+
         if (btnHeaderGuide) {
           btnHeaderGuide.classList.toggle('active', shouldOpen);
           btnHeaderGuide.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
@@ -6037,11 +6121,13 @@
           btnSidebarGuide.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
         }
 
+        renderSidebar();
+
         if (shouldOpen && tabId) {
           switchGuideTab(tabId);
         }
         if (shouldOpen) {
-          didacticGuideSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }
 
