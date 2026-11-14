@@ -1343,6 +1343,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.9rem;
+      scroll-margin-top: 86px;
     }
 
     .search-row {
@@ -1476,10 +1477,15 @@
     /* ==========================================================================
        6. PRATELEIRAS, CARDS DE AULA GLASSMORPHISM & CARDS DE VÍDEO / PLAYLIST
        ========================================================================== */
+    #playlists-shelves-container {
+      scroll-margin-top: 86px;
+    }
+
     .shelf-section {
       display: flex;
       flex-direction: column;
       gap: 0.95rem;
+      scroll-margin-top: 86px;
     }
 
     .lesson-glass-card {
@@ -1490,14 +1496,31 @@
       border-radius: var(--radius-lg);
       padding: 1.35rem;
       box-shadow: var(--shadow-glass);
-      transition: border-color var(--transition);
+      transition: border-color var(--transition), box-shadow var(--transition);
       display: flex;
       flex-direction: column;
       gap: 1.05rem;
+      scroll-margin-top: 86px;
     }
 
     .lesson-glass-card:hover {
       border-color: rgba(217, 119, 6, 0.42);
+    }
+
+    .lesson-glass-card.focus-highlight {
+      animation: lessonFocusPulse 0.9s ease-out;
+    }
+
+    @keyframes lessonFocusPulse {
+      0% {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.35), var(--shadow-card);
+      }
+
+      100% {
+        border-color: var(--border-subtle);
+        box-shadow: var(--shadow-glass);
+      }
     }
 
     .shelf-header {
@@ -4136,6 +4159,16 @@
       // ======================================================================
       // 6. RENDERIZAÇÃO DE FILTROS, SIDEBAR, CARDS E PRATELEIRAS
       // ======================================================================
+      function focusRightContentOnPlaylistSelect(targetEl) {
+        if (didacticGuideSection && didacticGuideSection.classList.contains('open') && typeof toggleDidacticGuide === 'function') {
+          toggleDidacticGuide(false);
+        }
+        if (!targetEl) return;
+        requestAnimationFrame(() => {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
       function renderFilterPills() {
         filterPillsBar.innerHTML = '';
         CATEGORIES.forEach((cat) => {
@@ -4151,6 +4184,7 @@
               activeFilter = 'all';
             }
             renderAll();
+            focusRightContentOnPlaylistSelect(playlistsShelvesContainer);
           };
           filterPillsBar.appendChild(btn);
         });
@@ -4231,6 +4265,14 @@
             if (item.id === 'all') activeCategory = 'all';
             closeMobileSidebar();
             renderAll();
+            const focusTarget = item.id === 'continue'
+              ? sectionContinue
+              : item.id === 'watchlist'
+                ? sectionWatchlist
+                : item.id === 'completed'
+                  ? sectionCompleted
+                  : document.querySelector('.controls-panel');
+            focusRightContentOnPlaylistSelect(focusTarget);
           };
 
           row.appendChild(btn);
@@ -4267,6 +4309,7 @@
               }
               closeMobileSidebar();
               renderAll();
+              focusRightContentOnPlaylistSelect(playlistsShelvesContainer);
             };
 
             row.appendChild(btn);
@@ -4314,6 +4357,7 @@
             activeCategory = 'all';
             closeMobileSidebar();
             renderAll();
+            focusRightContentOnPlaylistSelect(playlistsShelvesContainer);
           };
 
           const menuBtn = document.createElement('button');
@@ -4712,8 +4756,8 @@
         }
         continueVideos.sort((a, b) => (b.lastWatched || 0) - (a.lastWatched || 0));
 
-        const showContinueSection = (activeFilter === 'all' || activeFilter === 'continue' || activeFilter.startsWith('playlist:')) &&
-          (activeFilter === 'continue' || continueVideos.length > 0 || (!qNorm && activeCategory === 'all' && activeFilter === 'all'));
+        const showContinueSection = activeFilter === 'continue' ||
+          (activeFilter === 'all' && activeCategory === 'all' && !qNorm && continueVideos.length > 0);
         sectionContinue.style.display = showContinueSection ? 'flex' : 'none';
         countContinue.textContent = continueVideos.length;
         shelfContinue.innerHTML = '';
@@ -4773,7 +4817,7 @@
             const completedInLesson = allPlVideos.filter((v) => isVideoCompleted(v)).length;
 
             const section = document.createElement('section');
-            section.className = 'lesson-glass-card';
+            section.className = 'lesson-glass-card' + (activeFilter.startsWith('playlist:') ? ' focus-highlight' : '');
 
             const header = document.createElement('div');
             header.className = 'shelf-header';
@@ -4840,6 +4884,26 @@
 
             actionsGroup.appendChild(playLessonBtn);
             actionsGroup.appendChild(editPlBtn);
+            if (activeFilter.startsWith('playlist:')) {
+              const showAllBtn = document.createElement('button');
+              showAllBtn.type = 'button';
+              showAllBtn.className = 'btn-ghost';
+              showAllBtn.title = 'Voltar para a listagem de todas as 16 aulas';
+              showAllBtn.innerHTML = `
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Ver Todas as Aulas</span>
+              `;
+              showAllBtn.onclick = () => {
+                activeFilter = 'all';
+                renderAll();
+              };
+              actionsGroup.appendChild(showAllBtn);
+            }
             header.appendChild(titleGroup);
             header.appendChild(actionsGroup);
 
