@@ -344,7 +344,7 @@
     }
 
     .left-sidebar {
-      width: 336px;
+      width: 405px;
       flex-shrink: 0;
       position: relative;
       top: auto;
@@ -481,6 +481,14 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .sidebar-playlists-list .sidebar-btn-label {
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-height: 1.3;
     }
 
     .sidebar-count {
@@ -2288,7 +2296,7 @@
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: rgba(217, 119, 6, 0.35) transparent;
-        width: min(88vw, 350px);
+        width: min(90vw, 405px);
         z-index: 160;
         transform: translateX(-105%);
         transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
