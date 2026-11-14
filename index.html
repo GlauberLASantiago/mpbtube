@@ -957,44 +957,6 @@
       overflow: hidden !important;
     }
 
-    .fullscreen-exit-overlay-btn {
-      display: none;
-      position: absolute;
-      top: max(1rem, env(safe-area-inset-top, 1rem));
-      right: 1rem;
-      z-index: 10;
-      width: 36px;
-      height: 36px;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background: rgba(11, 15, 25, 0.82);
-      color: #f8fafc;
-      font-family: inherit;
-      opacity: 0.75;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
-      transition: background 0.16s ease, border-color 0.16s ease, opacity 0.16s ease, transform 0.14s ease;
-    }
-
-    .fullscreen-exit-overlay-btn:hover {
-      background: rgba(217, 119, 6, 0.92);
-      border-color: rgba(245, 158, 11, 0.95);
-      color: #fff;
-      opacity: 1;
-      transform: translateY(-1px);
-    }
-
-    .player-aspect-box.is-fullscreen .fullscreen-exit-overlay-btn,
-    .player-aspect-box:fullscreen .fullscreen-exit-overlay-btn,
-    .player-aspect-box:-webkit-full-screen .fullscreen-exit-overlay-btn {
-      display: inline-flex;
-    }
-
     .cinema-controls {
       margin-top: 0.9rem;
       display: flex;
@@ -2915,15 +2877,6 @@
 
           <div class="player-aspect-box">
             <div id="yt-player-mount"></div>
-            <button type="button" id="btn-exit-fullscreen-overlay" class="fullscreen-exit-overlay-btn"
-              title="Sair da Tela Cheia" aria-label="Sair da Tela Cheia">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path
-                  d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3">
-                </path>
-              </svg>
-            </button>
           </div>
 
           <div class="cinema-controls">
@@ -3551,7 +3504,6 @@
       const selectMovePlaylist = document.getElementById('select-move-playlist');
       const playerAspectBox = document.querySelector('.player-aspect-box');
       const btnToggleFullscreen = document.getElementById('btn-toggle-fullscreen');
-      const btnExitFullscreenOverlay = document.getElementById('btn-exit-fullscreen-overlay');
       const cinemaPedagogicalPanel = document.getElementById('cinema-pedagogical-panel');
       const cinemaSummaryWrap = document.getElementById('cinema-summary-wrap');
       const cinemaLessonSummary = document.getElementById('cinema-lesson-summary');
@@ -6025,7 +5977,7 @@
             start: startSeconds,
             rel: 0,
             playsinline: 1,
-            fs: 0
+            fs: 1
           },
           events: {
             onReady: (ev) => {
@@ -6060,7 +6012,7 @@
             autoplay: 1,
             rel: 0,
             playsinline: 1,
-            fs: 0
+            fs: 1
           },
           events: {
             onReady: (ev) => {
@@ -6204,25 +6156,26 @@
         }
       }
 
-      let fullscreenHistoryPushed = false;
-
       function enterPlayerFullscreen() {
         const box = playerAspectBox;
         if (!box) return;
-        // Usa fullscreen via CSS (fit-to-screen) sem chamar a Fullscreen API nativa,
-        // evitando a bolha persistente do navegador no Android sobre como sair da tela cheia.
-        box.classList.add('is-fullscreen');
-        updateFullscreenUI(true);
-        if (!fullscreenHistoryPushed && window.history && typeof window.history.pushState === 'function') {
-          try {
-            window.history.pushState({ mpbtubeFullscreen: true }, '');
-            fullscreenHistoryPushed = true;
-          } catch (e) { }
+        const req = box.requestFullscreen ||
+          box.webkitRequestFullscreen ||
+          box.mozRequestFullScreen ||
+          box.msRequestFullscreen;
+
+        if (req) {
+          req.call(box).catch(() => {
+            box.classList.add('is-fullscreen');
+            updateFullscreenUI(true);
+          });
+        } else {
+          box.classList.add('is-fullscreen');
+          updateFullscreenUI(true);
         }
       }
 
-      function exitPlayerFullscreen(options = {}) {
-        const fromPopstate = !!(options && options.fromPopstate);
+      function exitPlayerFullscreen() {
         const exit = document.exitFullscreen ||
           document.webkitExitFullscreen ||
           document.mozCancelFullScreen ||
@@ -6237,16 +6190,6 @@
           playerAspectBox.classList.remove('is-fullscreen');
         }
         updateFullscreenUI(false);
-        if (fullscreenHistoryPushed) {
-          fullscreenHistoryPushed = false;
-          if (!fromPopstate && window.history && typeof window.history.back === 'function') {
-            try {
-              if (window.history.state && window.history.state.mpbtubeFullscreen) {
-                window.history.back();
-              }
-            } catch (e) { }
-          }
-        }
       }
 
       function updateFullscreenUI(active) {
@@ -6717,21 +6660,6 @@
         btnToggleFullscreen.addEventListener('click', togglePlayerFullscreen);
       }
 
-      if (btnExitFullscreenOverlay) {
-        btnExitFullscreenOverlay.addEventListener('click', (e) => {
-          e.stopPropagation();
-          exitPlayerFullscreen();
-        });
-      }
-
-      if (playerAspectBox) {
-        playerAspectBox.addEventListener('click', (e) => {
-          if (e.target === playerAspectBox && isFullscreenActive()) {
-            exitPlayerFullscreen();
-          }
-        });
-      }
-
       const handleFullscreenChange = () => {
         const active = !!(document.fullscreenElement || document.webkitFullscreenElement);
         if (!active && playerAspectBox) {
@@ -6742,14 +6670,6 @@
 
       document.addEventListener('fullscreenchange', handleFullscreenChange);
       document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-
-      window.addEventListener('popstate', () => {
-        if (isFullscreenActive()) {
-          exitPlayerFullscreen({ fromPopstate: true });
-        } else {
-          fullscreenHistoryPushed = false;
-        }
-      });
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && isFullscreenActive()) {
