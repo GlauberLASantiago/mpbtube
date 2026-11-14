@@ -1,11 +1,13 @@
-const CACHE = 'mpbtube-shell-v19';
+const CACHE = 'mpbtube-shell-v20';
 const SHELL = [
   './',
   './index.html',
   './manifest.json',
   './mpbtube-banco-inicial.json',
   './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icons/icon-512.png',
+  './icons/icon-maskable-192.png',
+  './icons/icon-maskable-512.png'
 ];
 
 self.addEventListener('install', (e) => {

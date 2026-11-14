@@ -1,6 +1,7 @@
 {
   "name": "MPBTube — História da Música Popular Brasileira",
   "short_name": "MPBTube",
+  "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
