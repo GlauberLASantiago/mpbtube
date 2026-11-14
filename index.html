@@ -2429,7 +2429,7 @@
        ======================================================================== -->
   <div class="app-shell">
     <!-- BARRA LATERAL ESQUERDA -->
-    <aside id="left-sidebar" class="left-sidebar" aria-label="Navegação, Eixos Temáticos e Tópicos">
+    <aside id="left-sidebar" class="left-sidebar" aria-label="Navegação e Tópicos">
       <div class="sidebar-top-sections">
         <div class="mobile-sidebar-header">
           <span class="brand-name" style="font-size: 1.15rem;"><span class="mpb">MPB</span><span
@@ -2460,15 +2460,7 @@
           </div>
         </div>
 
-        <!-- Seção 2: Eixos Temáticos / Regiões -->
-        <div class="sidebar-group">
-          <div class="sidebar-section-header">
-            <span class="sidebar-section-title">Eixos Temáticos / Regiões</span>
-          </div>
-          <nav id="sidebar-categories-list" class="sidebar-nav-list" aria-label="Eixos Temáticos"></nav>
-        </div>
-
-        <!-- Seção 3: Tópicos & Coleções -->
+        <!-- Seção 2: Tópicos & Coleções -->
         <div class="sidebar-group">
           <div class="sidebar-section-header">
             <span class="sidebar-section-title">Tópicos &amp; Coleções</span>
@@ -2715,9 +2707,6 @@
             Exibindo: <strong id="visibleCount">18</strong> de <strong id="totalLessonsCount">18</strong> tópicos •
             <strong id="visibleItemsCount">154</strong> vídeos e <strong id="visiblePlaylistsCount">74</strong> playlists
           </div>
-        </div>
-
-        <div id="filter-pills-bar" class="filter-pills-bar" role="tablist" aria-label="Filtros por Eixo Temático">
         </div>
       </section>
 
@@ -3127,13 +3116,11 @@
       const leftSidebar = document.getElementById('left-sidebar');
       const sidebarBackdrop = document.getElementById('sidebar-backdrop');
       const sidebarNavList = document.getElementById('sidebar-nav-list');
-      const sidebarCategoriesList = document.getElementById('sidebar-categories-list');
       const sidebarPlaylistsList = document.getElementById('sidebar-playlists-list');
       const sidebarPlaylistsTotal = document.getElementById('sidebar-playlists-total');
 
       const searchInput = document.getElementById('searchInput');
       const btnClearSearch = document.getElementById('btn-clear-search');
-      const filterPillsBar = document.getElementById('filter-pills-bar');
       const visibleCountEl = document.getElementById('visibleCount');
       const totalLessonsCountEl = document.getElementById('totalLessonsCount');
       const visibleItemsCountEl = document.getElementById('visibleItemsCount');
@@ -4269,27 +4256,6 @@
         });
       }
 
-      function renderFilterPills() {
-        filterPillsBar.innerHTML = '';
-        CATEGORIES.forEach((cat) => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'filter-pill-btn' + (activeCategory === cat.id ? ' active' : '');
-          btn.textContent = cat.label;
-          btn.setAttribute('role', 'tab');
-          btn.setAttribute('aria-selected', activeCategory === cat.id ? 'true' : 'false');
-          btn.onclick = () => {
-            activeCategory = cat.id;
-            if (activeFilter.startsWith('playlist:') || activeFilter === 'completed' || activeFilter === 'watchlist') {
-              activeFilter = 'all';
-            }
-            renderAll();
-            focusRightContentOnPlaylistSelect(playlistsShelvesContainer);
-          };
-          filterPillsBar.appendChild(btn);
-        });
-      }
-
       function updatePlayerMovePlaylistSelect(currentVideo) {
         if (!selectMovePlaylist) return;
         const firstOptionText = (currentVideo && currentVideo.playlistId)
@@ -4378,44 +4344,6 @@
           row.appendChild(btn);
           sidebarNavList.appendChild(row);
         });
-
-        if (sidebarCategoriesList) {
-          sidebarCategoriesList.innerHTML = '';
-          CATEGORIES.forEach((cat) => {
-            const catCount = cat.id === 'all'
-              ? sortedPlaylists.filter((p) => typeof p.lessonNumber === 'number').length || sortedPlaylists.length
-              : sortedPlaylists.filter((p) => p.category === cat.id).length;
-
-            const isActiveCat = activeCategory === cat.id && (activeFilter === 'all' || activeFilter === 'continue');
-            const row = document.createElement('div');
-            row.className = 'sidebar-item-row' + (isActiveCat ? ' active' : '');
-
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'sidebar-nav-btn';
-            btn.style.padding = '0.42rem 0.62rem';
-            btn.style.fontSize = '0.79rem';
-            btn.innerHTML = `
-              <span class="sidebar-btn-left">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color: var(--accent-text);"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3m0 14v3M2 12h3m14 0h3"></path></svg>
-                <span class="sidebar-btn-label">${escapeHtml(cat.label)}</span>
-              </span>
-              <span class="sidebar-count">${catCount}</span>
-            `;
-            btn.onclick = () => {
-              activeCategory = cat.id;
-              if (activeFilter.startsWith('playlist:') || activeFilter === 'completed' || activeFilter === 'watchlist') {
-                activeFilter = 'all';
-              }
-              closeMobileSidebar();
-              renderAll();
-              focusRightContentOnPlaylistSelect(playlistsShelvesContainer);
-            };
-
-            row.appendChild(btn);
-            sidebarCategoriesList.appendChild(row);
-          });
-        }
 
         sidebarPlaylistsTotal.textContent = sortedPlaylists.length;
         sidebarPlaylistsList.innerHTML = '';
@@ -4813,7 +4741,6 @@
       }
 
       function renderAll() {
-        renderFilterPills();
         renderSidebar();
         updateWatchedButton();
 
