@@ -1,8 +1,8 @@
 {
   "app": "MPBTube",
-  "version": 6,
+  "version": 7,
   "course": "História da Música Popular Brasileira",
-  "exportedAt": "2026-11-14T10:05:00.000Z",
+  "exportedAt": "2026-11-14T10:25:00.000Z",
   "playlists": {
     "aula_01": {
       "id": "aula_01",
@@ -130,7 +130,7 @@
       "category": "sudeste",
       "tag": "Rio, BA e SP",
       "historic": "Anos 1910–1950 • Rio de Janeiro, Bahia e São Paulo",
-      "concepts": "Da Praça Onze e Tia Ciata ao samba sincopado do Estácio (Ismael Silva), samba de roda do Recôncavo e samba paulista (Adoniran Barbosa, Geraldo Filme).",
+      "concepts": "Da Praça Onze e Tia Ciata ao samba sincopado do Estácio (Ismael Silva), Noel Rosa e a crônica do samba urbano (relatos de João Nogueira no MPB Histórias / TV Tupi), samba de roda do Recôncavo e samba paulista (Adoniran Barbosa, Geraldo Filme).",
       "youtubePlaylists": [
         {
           "id": "ytpl_PLmXNjjEv6RMQMm5-HwCv3KG8rYOppVWVM",
@@ -165,8 +165,8 @@
       ],
       "importedAt": 1794500004000,
       "block": "Bloco I — Matrizes Formadoras e Gêneros Urbanos Fundadores",
-      "summary": "Percorre a formação e as transformações do samba urbano a partir da diáspora afro-baiana na Pequena África e nas casas das tias baianas (como Tia Ciata) na Praça Onze. Analisa-se a mudança de paradigma rítmico entre o samba amaxixado da primeira metade dos anos 1910–20 ('Pelo Telefone') e o samba sincopado do Estácio (Ismael Silva), pensado para o desfile das escolas de samba, além da tradição poético-melódica das velhas guardas dos morros cariocas (Portela, Mangueira) e das especificidades do samba rural e urbano paulista (Geraldo Filme e Adoniran Barbosa).",
-      "listeningFocus": "O que observar na escuta: contraste o desenho rítmico do samba amaxixado de 1917 com o paradigma do Estácio e as variantes de samba de roda, partido-alto e samba-enredo; observe a prosódia coloquial paulistana versus a carioca. Para aprender e ensinar (Lei nº 10.639/2003): territorialidades negras urbanas e memória oral das velhas guardas."
+      "summary": "Percorre a formação e as transformações do samba urbano a partir da diáspora afro-baiana na Pequena África e nas casas das tias baianas (como Tia Ciata) na Praça Onze. Analisa-se a mudança de paradigma rítmico entre o samba amaxixado da primeira metade dos anos 1910–20 ('Pelo Telefone') e o samba sincopado do Estácio (Ismael Silva), pensado para o desfile das escolas de samba, além da crônica carioca e sofisticação melódica de Noel Rosa e do ambiente cultural dos compositores da época — rememorado em depoimento nostálgico e biográfico por João Nogueira no programa MPB Histórias (TV Tupi) —, somados à tradição das velhas guardas dos morros cariocas (Portela, Mangueira) e às especificidades do samba rural e urbano paulista (Geraldo Filme e Adoniran Barbosa).",
+      "listeningFocus": "O que observar na escuta: contraste o desenho rítmico do samba amaxixado de 1917 com o paradigma do Estácio e as variantes de samba de roda, partido-alto e samba-enredo; observe a prosódia coloquial paulistana versus a carioca e, no depoimento de João Nogueira em 'MPB Histórias' (TV Tupi), atente para a memória afetiva sobre a poética de Noel Rosa e os modos de criação dos compositores de samba dos anos 1930. Para aprender e ensinar (Lei nº 10.639/2003): territorialidades negras urbanas e memória oral das velhas guardas."
     },
     "aula_05": {
       "id": "aula_05",
@@ -176,7 +176,7 @@
       "category": "sudeste",
       "tag": "Era do Rádio",
       "historic": "Anos 1920–1950 (e transição para a TV nos anos 1950–1970) • Rio de Janeiro e São Paulo (Rádio Nacional e TV Tupi)",
-      "concepts": "Orquestras de estúdio e arranjadores (Radamés Gnattali, Leo Peracchi), samba-canção, marchinha, grandes vozes do rádio (Carmen Miranda, Orlando Silva, Dalva de Oliveira, Marlene, Emilinha Borba), fã-clubes e a passagem do cast radiofônico para os musicais da TV Tupi (1950–1971).",
+      "concepts": "Orquestras de estúdio e arranjadores (Radamés Gnattali, Leo Peracchi), samba-canção, marchinha, compositores e cronistas do rádio (Ary Barroso, Wilson Batista, Francisco Alves, Jorge Veiga), grandes vozes e rainhas do rádio (Carmen Miranda, Orlando Silva, Dalva de Oliveira, Marlene, Emilinha Borba), fã-clubes e a transição do cast radiofônico para os musicais e programas de memória da TV Tupi (MPB Histórias e Especial 21 Anos, 1950–1971).",
       "youtubePlaylists": [
         {
           "id": "ytpl_PLpJ8XlufKukseR5FBR8b_qTnVScd0ZPsm",
@@ -201,8 +201,8 @@
       ],
       "importedAt": 1794500005000,
       "block": "Bloco I — Matrizes Formadoras e Gêneros Urbanos Fundadores",
-      "summary": "Aborda a consolidação da indústria cultural e fonográfica no Brasil entre as décadas de 1920 e 1950 através da radiodifusão, com foco no apogeu da Rádio Nacional do Rio de Janeiro. Examina-se a criação de um padrão sinfônico-popular brasileiro pelas grandes orquestras de estúdio e arranjadores como Radamés Gnattali e Leo Peracchi, o florescimento das marchinhas carnavalescas (Braguinha) e do samba-canção, e o fenômeno de massas dos programas de auditório e das grandes vozes e rainhas do rádio (Carmen Miranda, Orlando Silva, Dalva de Oliveira, Marlene e Emilinha Borba). Em seguida, acompanha o desdobramento dessa cultura midiática na televisão brasileira inaugurada pela TV Tupi em 1950 — exemplificado pelo histórico Especial 21 Anos da TV Tupi (1971), gravado na transição para as transmissões em cores, que celebra a trajetória da MPB ao reunir Dalva de Oliveira, Agostinho dos Santos e Leny Andrade em uma ponte geracional entre a Era do Rádio, o samba-canção, a Bossa Nova e o samba-jazz.",
-      "listeningFocus": "O que observar na escuta: repare na escrita orquestral para sopros e cordas (especialmente metais no samba-exaltação e no samba-canção), nas mudanças acústicas trazidas pela gravação elétrica (pós-1927) e pelo microfone na emissão vocal. No Especial 21 Anos da TV Tupi (1971), observe o encontro histórico de três gerações e escolas vocais: a emissão dramática e potente de Dalva de Oliveira, o lirismo de Agostinho dos Santos e a improvisação jazzística de Leny Andrade, além da transição da televisão do preto e branco para a era em cores. Para aprender e ensinar: análise crítica da mídia radiofônica e televisiva na construção de repertórios e ídolos populares."
+      "summary": "Aborda a consolidação da indústria cultural e fonográfica no Brasil entre as décadas de 1920 e 1950 através da radiodifusão, com foco no apogeu da Rádio Nacional do Rio de Janeiro e da Rádio Tupi. Examina-se a criação de um padrão sinfônico-popular brasileiro pelas grandes orquestras de estúdio e arranjadores como Radamés Gnattali e Leo Peracchi, o florescimento das marchinhas carnavalescas (Braguinha) e do samba-canção, e o fenômeno de massas dos programas de auditório e das grandes vozes do rádio (Carmen Miranda, Orlando Silva, Dalva de Oliveira, Marlene e Emilinha Borba). Em seguida, acompanha o desdobramento dessa cultura midiática na televisão brasileira inaugurada pela TV Tupi em 1950 — ilustrado tanto pelo Especial 21 Anos da TV Tupi (1971), gravado na transição para as transmissões em cores reunindo Dalva de Oliveira, Agostinho dos Santos e Leny Andrade, quanto pela edição do programa MPB Histórias (TV Tupi) em que Paulinho da Viola homenageia Wilson Batista (0:16, com 'Meu Chapéu de Lado' em 1:35), Jorge Veiga narra histórias e desafios musicais com Ary Barroso na Rádio Tupi (7:13, com 'Carne Seca com Tutu' em 9:16) e recorda a importância de Francisco Alves no samba-canção (12:05–13:00, com 'Caminhamos' em 15:50), encerrando com Luiz Gonzaga e sua parceria com Humberto Teixeira no baião (19:32) e a performance sobre a vida e o trágico fim do vaqueiro Raimundo Jacó ('A Morte do Vaqueiro', 21:27–22:12).",
+      "listeningFocus": "O que observar na escuta: repare na escrita orquestral para sopros e cordas (especialmente metais no samba-exaltação e no samba-canção), nas mudanças acústicas trazidas pela gravação elétrica (pós-1927) e pelo microfone na emissão vocal. No Especial 21 Anos da TV Tupi (1971), observe o encontro entre Dalva de Oliveira, Agostinho dos Santos e Leny Andrade; e, em 'MPB Histórias' (TV Tupi), acompanhe pelos marcos temporais o estilo malandro-urbano de Wilson Batista na voz de Paulinho da Viola (0:16 / 1:35), a verve humorística e os bastidores da Rádio Tupi contados por Jorge Veiga sobre Ary Barroso (7:13 / 9:16) e Francisco Alves (12:05 / 13:00 / 15:50), além da transição do rádio para a consagração nordestina de Luiz Gonzaga (19:32 / 21:27 / 22:12). Para aprender e ensinar: análise crítica da mídia radiofônica e televisiva na construção de repertórios e ídolos populares."
     },
     "aula_06": {
       "id": "aula_06",
@@ -320,7 +320,7 @@
       "category": "nordeste",
       "tag": "Nordeste & Baião",
       "historic": "Anos 1940–1960 • Sertão Nordestino e Rádios do Sudeste",
-      "concepts": "Trio básico (sanfona, zabumba, triângulo), baião, xote, xaxado, coco embolado e a obra de Luiz Gonzaga, Humberto Teixeira e Jackson do Pandeiro.",
+      "concepts": "Trio básico (sanfona, zabumba, triângulo), baião, xote, xaxado, coco embolado, a obra de Luiz Gonzaga, Humberto Teixeira e Jackson do Pandeiro, e o diálogo biográfico entre Luiz Gonzaga e Gonzaguinha (Programa Proposta / TV Cultura).",
       "youtubePlaylists": [
         {
           "id": "ytpl_PLkquz1KIIDMXm9RMfIBrlBPxYOtPbWnxZ",
@@ -345,8 +345,8 @@
       ],
       "importedAt": 1794500009000,
       "block": "Bloco II — Brasil Profundo: Tradições Regionais, Fronteiras e Religiosidades",
-      "summary": "Analisa o processo de estilização urbana e projeção nacional dos gêneros rurais nordestinos nos anos 1940 e 1950 a partir do rádio e do disco no Sudeste. O foco recai sobre a invenção estética e comercial do Baião por Luiz Gonzaga e Humberto Teixeira (e depois Zé Dantas), a codificação organológica do 'trio básico' de forró (sanfona, zabumba e triângulo), o uso de escalas modais nordestinas (modo mixolídio e lídio com 4ª aumentada/7ª menor) no xote e no xaxado, e o virtuosismo rítmico-sincopado de Jackson do Pandeiro no coco embolado.",
-      "listeningFocus": "O que observar na escuta: distinga as células rítmicas da zabumba (bacalhau no agudo + maceta no grave) entre baião, xote e xaxado, identifique a sonoridade modal nordestina nas melodias e analise a dicção rítmica percussiva em Jackson do Pandeiro. Para aprender e ensinar: polirritmia corporal em grupo inspirada no trio pé-de-serra."
+      "summary": "Analisa o processo de estilização urbana e projeção nacional dos gêneros rurais nordestinos nos anos 1940 e 1950 a partir do rádio e do disco no Sudeste. O foco recai sobre a invenção estética e comercial do Baião por Luiz Gonzaga e Humberto Teixeira (e depois Zé Dantas), a codificação organológica do 'trio básico' de forró (sanfona, zabumba e triângulo), o uso de escalas modais nordestinas (modo mixolídio e lídio com 4ª aumentada/7ª menor) no xote e no xaxado, e o virtuosismo rítmico-sincopado de Jackson do Pandeiro no coco embolado — complementado pelo emocionante registro de história oral da entrevista biográfica de Luiz Gonzaga conduzida por seu filho, Luiz Gonzaga Júnior (Gonzaguinha), no programa Proposta da TV Cultura (Bloco 1).",
+      "listeningFocus": "O que observar na escuta: distinga as células rítmicas da zabumba (bacalhau no agudo + maceta no grave) entre baião, xote e xaxado, identifique a sonoridade modal nordestina nas melodias e analise a dicção rítmica percussiva em Jackson do Pandeiro. Na entrevista do programa Proposta (TV Cultura), observe o diálogo geracional e afetivo entre Luiz Gonzaga e Gonzaguinha sobre vida sertaneja, ofício de sanfoneiro e consciência cultural do Nordeste. Para aprender e ensinar: polirritmia corporal em grupo inspirada no trio pé-de-serra."
     },
     "aula_10": {
       "id": "aula_10",
@@ -1460,6 +1460,23 @@
       "url": "https://www.youtube.com/watch?v=068cfxUvP8s"
     },
     {
+      "id": "XUYsU_GnPIw",
+      "title": "MPB Histórias (TV Tupi) — João Nogueira: Noel Rosa e os Compositores do Samba",
+      "author": "Acervo TV Tupi — MPB Histórias",
+      "currentTime": 0,
+      "duration": 0,
+      "lastWatched": null,
+      "completed": false,
+      "playlistId": "aula_04",
+      "playlistName": "Tópico 04 — O Samba Urbano, a Pequena África e Suas Vertentes",
+      "playlistOrder": 4,
+      "lessonNumber": 4,
+      "category": "sudeste",
+      "tag": "Rio, BA e SP",
+      "thumb": "https://i.ytimg.com/vi/XUYsU_GnPIw/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=XUYsU_GnPIw"
+    },
+    {
       "id": "VI9pocXqo48",
       "title": "Documentário Cantoras do Rádio (2005)",
       "author": "Paulo Martan Barítono",
@@ -1543,6 +1560,23 @@
       "tag": "Era do Rádio",
       "thumb": "https://i.ytimg.com/vi/MJDQw5dj6qM/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=MJDQw5dj6qM"
+    },
+    {
+      "id": "4LPXFZzt210",
+      "title": "MPB Histórias (TV Tupi) — Paulinho da Viola (Wilson Batista), Jorge Veiga (Ary Barroso e Francisco Alves) e Luiz Gonzaga",
+      "author": "Acervo TV Tupi — MPB Histórias",
+      "currentTime": 0,
+      "duration": 0,
+      "lastWatched": null,
+      "completed": false,
+      "playlistId": "aula_05",
+      "playlistName": "Tópico 05 — A Era do Rádio e a Consolidação da Indústria Cultural",
+      "playlistOrder": 5,
+      "lessonNumber": 5,
+      "category": "sudeste",
+      "tag": "Era do Rádio",
+      "thumb": "https://i.ytimg.com/vi/4LPXFZzt210/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=4LPXFZzt210"
     },
     {
       "id": "02kX9NRRATc",
@@ -1849,6 +1883,23 @@
       "tag": "Nordeste & Baião",
       "thumb": "https://i.ytimg.com/vi/AfFKg2kL4JA/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=AfFKg2kL4JA"
+    },
+    {
+      "id": "-QKmIl71268",
+      "title": "Programa Proposta (TV Cultura) — Luiz Gonzaga entrevistado por Gonzaguinha (Bloco 1)",
+      "author": "TV Cultura — Programa Proposta",
+      "currentTime": 0,
+      "duration": 0,
+      "lastWatched": null,
+      "completed": false,
+      "playlistId": "aula_09",
+      "playlistName": "Tópico 09 — A Nacionalização do Nordeste: Luiz Gonzaga e o Baião",
+      "playlistOrder": 3,
+      "lessonNumber": 9,
+      "category": "nordeste",
+      "tag": "Nordeste & Baião",
+      "thumb": "https://i.ytimg.com/vi/-QKmIl71268/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=-QKmIl71268"
     },
     {
       "id": "bdMjkEjiVHk",
