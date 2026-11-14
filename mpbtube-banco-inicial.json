@@ -1,8 +1,8 @@
 {
   "app": "MPBTube",
-  "version": 7,
+  "version": 8,
   "course": "História da Música Popular Brasileira",
-  "exportedAt": "2026-11-14T10:25:00.000Z",
+  "exportedAt": "2026-11-14T10:30:00.000Z",
   "playlists": {
     "aula_01": {
       "id": "aula_01",
@@ -528,7 +528,7 @@
       "category": "vanguarda",
       "tag": "Tropicália & Festivais",
       "historic": "1965–1969 • São Paulo e Bahia",
-      "concepts": "Consolidação da sigla MPB nos festivais televisivos; antropofagia cultural, guitarras elétricas, colagens sonoras e arranjos vanguardistas de Rogério Duprat.",
+      "concepts": "Origem e consolidação da sigla MPB ('Moderna Música Popular Brasileira') a partir do tripé Bossa Nova, Canção Engajada (CPC) e Tropicália nos Festivais da Canção televisivos (análise de Adelcio Machado / UFSCar); antropofagia cultural, guitarras elétricas, colagens sonoras e arranjos vanguardistas de Rogério Duprat.",
       "youtubePlaylists": [
         {
           "id": "ytpl_PLLCx7chs1o5URWkz21jzfQVaJgmhJ_A9s",
@@ -543,8 +543,8 @@
       ],
       "importedAt": 1794500012000,
       "block": "Bloco III — Modernização Estética, Vanguardas e Indústria Fonográfica",
-      "summary": "Estuda o turbilhão estético e político da segunda metade dos anos 1960, quando os grandes Festivais da Canção (TV Excelsior, TV Record e TV Globo) consolidaram a sigla 'MPB' e polarizaram os debates entre canção de protesto nacional-popular e vanguarda. A partir do marco de 1967 ('Alegria, Alegria' e 'Domingo no Parque') e do álbum-manifesto Tropicália ou Panis et Circensis (1968), analisa-se a antropofagia cultural oswaldiana aplicada por Caetano Veloso, Gilberto Gil, Os Mutantes, Gal Costa, Tom Zé e pelo maestro Rogério Duprat, fundindo guitarras elétricas, cultura pop, tradição baiana e colagem eletroacústica.",
-      "listeningFocus": "O que observar na escuta: identifique o choque timbrístico e estilístico dentro dos arranjos de Rogério Duprat (berimbau e iê-iê-iê com orquestra atonal em 'Domingo no Parque'; banda de rock, fanfarra e citação erudita em 'Panis et Circensis'). Para aprender e ensinar: interdisciplinaridade entre música, cinema (Glauber Rocha), artes visuais (Hélio Oiticica) e história política do Brasil."
+      "summary": "Estuda o turbilhão estético e político da segunda metade dos anos 1960, quando os grandes Festivais da Canção (TV Excelsior, TV Record e TV Globo) institucionalizaram e consagraram a sigla 'MPB' — originalmente cunhada como 'Moderna Música Popular Brasileira' (0:47–0:55), conforme explica o Prof. Adelcio Machado (UFSCar). A consolidação desse gênero de prestígio artístico (6:51–7:12) articulou três pilares históricos: (1) a Bossa Nova (1:29–2:51), marco inicial da modernização pelo canto contido e violão de João Gilberto em contraste com os 'vozeirões' da Era do Rádio; (2) a Canção Engajada (3:02–4:20), ligada ao Centro Popular de Cultura (CPC) da UNE e voltada a temas sociais e à revalorização de matrizes tradicionais como baião, frevo e samba de morro; e (3) a Tropicália (5:24–6:25), lançada por Caetano Veloso, Gilberto Gil, Os Mutantes, Gal Costa, Tom Zé e Rogério Duprat nos festivais de 1967 ('Alegria, Alegria' e 'Domingo no Parque') e no álbum-manifesto Tropicália ou Panis et Circensis (1968), fundindo tradição brasileira, guitarras elétricas, rock internacional e colagem eletroacústica sob a mediação decisiva da televisão (4:21–5:23).",
+      "listeningFocus": "O que observar na escuta: na exposição do Prof. Adelcio Machado (UFSCar), acompanhe pelos marcos temporais a distinção entre os três pilares formadores da 'Moderna Música Popular Brasileira' (0:47–0:55) — Bossa Nova (1:29–2:51), Canção Engajada/CPC (3:02–4:20) e Tropicália (5:24–6:25) — bem como o papel legitimador da televisão e dos Festivais (4:21–5:23 / 6:51–7:12). Nos fonogramas tropicalistas, identifique o choque timbrístico dos arranjos de Rogério Duprat (berimbau e iê-iê-iê com orquestra atonal em 'Domingo no Parque'; banda de rock, fanfarra e citação erudita em 'Panis et Circensis'). Para aprender e ensinar: interdisciplinaridade entre música, cinema (Glauber Rocha), artes visuais (Hélio Oiticica) e história política do Brasil."
     },
     "aula_13": {
       "id": "aula_13",
@@ -2597,6 +2597,23 @@
       "tag": "Tropicália & Festivais",
       "thumb": "https://i.ytimg.com/vi/vDGxz7RbkEk/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=vDGxz7RbkEk"
+    },
+    {
+      "id": "prhk969fj58",
+      "title": "O Significado e a Consolidação da Sigla MPB: Bossa Nova, Canção Engajada, Festivais e Tropicália — Prof. Adelcio Machado (UFSCar)",
+      "author": "Prof. Adelcio Machado (UFSCar)",
+      "currentTime": 0,
+      "duration": 0,
+      "lastWatched": null,
+      "completed": false,
+      "playlistId": "aula_12",
+      "playlistName": "Tópico 12 — Era dos Festivais, Canção de Protesto e Tropicália",
+      "playlistOrder": 3,
+      "lessonNumber": 12,
+      "category": "vanguarda",
+      "tag": "Tropicália & Festivais",
+      "thumb": "https://i.ytimg.com/vi/prhk969fj58/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=prhk969fj58"
     },
     {
       "id": "ICBrn3EziWY",
