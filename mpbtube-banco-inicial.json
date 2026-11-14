@@ -1,8 +1,8 @@
 {
   "app": "MPBTube",
-  "version": 5,
+  "version": 6,
   "course": "História da Música Popular Brasileira",
-  "exportedAt": "2026-11-14T04:15:00.000Z",
+  "exportedAt": "2026-11-14T10:05:00.000Z",
   "playlists": {
     "aula_01": {
       "id": "aula_01",
@@ -175,8 +175,8 @@
       "title": "A Era do Rádio e a Consolidação da Indústria Cultural",
       "category": "sudeste",
       "tag": "Era do Rádio",
-      "historic": "Anos 1920–1950 • Rio de Janeiro (Rádio Nacional)",
-      "concepts": "Orquestras de estúdio e arranjadores (Radamés Gnattali), samba-canção, marchinha, grandes cantoras do rádio (Marlene, Emilinha, Dalva) e fã-clubes.",
+      "historic": "Anos 1920–1950 (e transição para a TV nos anos 1950–1970) • Rio de Janeiro e São Paulo (Rádio Nacional e TV Tupi)",
+      "concepts": "Orquestras de estúdio e arranjadores (Radamés Gnattali, Leo Peracchi), samba-canção, marchinha, grandes vozes do rádio (Carmen Miranda, Orlando Silva, Dalva de Oliveira, Marlene, Emilinha Borba), fã-clubes e a passagem do cast radiofônico para os musicais da TV Tupi (1950–1971).",
       "youtubePlaylists": [
         {
           "id": "ytpl_PLpJ8XlufKukseR5FBR8b_qTnVScd0ZPsm",
@@ -201,8 +201,8 @@
       ],
       "importedAt": 1794500005000,
       "block": "Bloco I — Matrizes Formadoras e Gêneros Urbanos Fundadores",
-      "summary": "Aborda a consolidação da indústria cultural e fonográfica no Brasil entre as décadas de 1920 e 1950 através da radiodifusão, com foco no apogeu da Rádio Nacional do Rio de Janeiro. Examina-se a criação de um padrão sinfônico-popular brasileiro pelas grandes orquestras de estúdio e arranjadores como Radamés Gnattali e Leo Peracchi, o florescimento das marchinhas carnavalescas (Braguinha) e do samba-canção, e o fenômeno de massas dos programas de auditório e das grandes vozes e rainhas do rádio (Carmen Miranda, Orlando Silva, Dalva de Oliveira, Marlene e Emilinha Borba).",
-      "listeningFocus": "O que observar na escuta: repare na escrita orquestral para sopros e cordas (especialmente metais no samba-exaltação e no samba-canção), nas mudanças acústicas trazidas pela gravação elétrica (pós-1927) e pelo microfone na emissão vocal. Para aprender e ensinar: análise crítica da mídia radiofônica e construção de símbolos nacionais."
+      "summary": "Aborda a consolidação da indústria cultural e fonográfica no Brasil entre as décadas de 1920 e 1950 através da radiodifusão, com foco no apogeu da Rádio Nacional do Rio de Janeiro. Examina-se a criação de um padrão sinfônico-popular brasileiro pelas grandes orquestras de estúdio e arranjadores como Radamés Gnattali e Leo Peracchi, o florescimento das marchinhas carnavalescas (Braguinha) e do samba-canção, e o fenômeno de massas dos programas de auditório e das grandes vozes e rainhas do rádio (Carmen Miranda, Orlando Silva, Dalva de Oliveira, Marlene e Emilinha Borba). Em seguida, acompanha o desdobramento dessa cultura midiática na televisão brasileira inaugurada pela TV Tupi em 1950 — exemplificado pelo histórico Especial 21 Anos da TV Tupi (1971), gravado na transição para as transmissões em cores, que celebra a trajetória da MPB ao reunir Dalva de Oliveira, Agostinho dos Santos e Leny Andrade em uma ponte geracional entre a Era do Rádio, o samba-canção, a Bossa Nova e o samba-jazz.",
+      "listeningFocus": "O que observar na escuta: repare na escrita orquestral para sopros e cordas (especialmente metais no samba-exaltação e no samba-canção), nas mudanças acústicas trazidas pela gravação elétrica (pós-1927) e pelo microfone na emissão vocal. No Especial 21 Anos da TV Tupi (1971), observe o encontro histórico de três gerações e escolas vocais: a emissão dramática e potente de Dalva de Oliveira, o lirismo de Agostinho dos Santos e a improvisação jazzística de Leny Andrade, além da transição da televisão do preto e branco para a era em cores. Para aprender e ensinar: análise crítica da mídia radiofônica e televisiva na construção de repertórios e ídolos populares."
     },
     "aula_06": {
       "id": "aula_06",
@@ -1526,6 +1526,23 @@
       "tag": "Era do Rádio",
       "thumb": "https://i.ytimg.com/vi/8VdS4beAbBk/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=8VdS4beAbBk"
+    },
+    {
+      "id": "MJDQw5dj6qM",
+      "title": "Especial 21 Anos TV Tupi (1971) — Dalva de Oliveira, Agostinho dos Santos e Leny Andrade",
+      "author": "Acervo TV Tupi (1971)",
+      "currentTime": 0,
+      "duration": 0,
+      "lastWatched": null,
+      "completed": false,
+      "playlistId": "aula_05",
+      "playlistName": "Tópico 05 — A Era do Rádio e a Consolidação da Indústria Cultural",
+      "playlistOrder": 4,
+      "lessonNumber": 5,
+      "category": "sudeste",
+      "tag": "Era do Rádio",
+      "thumb": "https://i.ytimg.com/vi/MJDQw5dj6qM/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=MJDQw5dj6qM"
     },
     {
       "id": "02kX9NRRATc",
