@@ -1,4 +1,4 @@
-const CACHE = 'mpbtube-shell-v4';
+const CACHE = 'mpbtube-shell-v5';
 const SHELL = [
   './',
   './index.html',
