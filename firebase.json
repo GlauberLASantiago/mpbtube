@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "mpbtube",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      ".gitignore",
+      ".git/**",
+      ".firebase/**",
+      "**/.*",
+      "**/.*/**",
+      "**/node_modules/**",
+      "informacoes/**"
+    ]
+  }
+}
