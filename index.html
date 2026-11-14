@@ -963,27 +963,29 @@
       top: max(1rem, env(safe-area-inset-top, 1rem));
       right: 1rem;
       z-index: 10;
+      width: 36px;
+      height: 36px;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.5rem 0.9rem;
-      border-radius: 999px;
+      justify-content: center;
+      padding: 0;
+      border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.25);
       background: rgba(11, 15, 25, 0.82);
       color: #f8fafc;
       font-family: inherit;
-      font-size: 0.8rem;
-      font-weight: 700;
+      opacity: 0.75;
       cursor: pointer;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
-      transition: background 0.16s ease, border-color 0.16s ease, transform 0.14s ease;
+      transition: background 0.16s ease, border-color 0.16s ease, opacity 0.16s ease, transform 0.14s ease;
     }
 
     .fullscreen-exit-overlay-btn:hover {
       background: rgba(217, 119, 6, 0.92);
       border-color: rgba(245, 158, 11, 0.95);
       color: #fff;
+      opacity: 1;
       transform: translateY(-1px);
     }
 
@@ -2914,14 +2916,13 @@
           <div class="player-aspect-box">
             <div id="yt-player-mount"></div>
             <button type="button" id="btn-exit-fullscreen-overlay" class="fullscreen-exit-overlay-btn"
-              title="Sair da Tela Cheia">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              title="Sair da Tela Cheia" aria-label="Sair da Tela Cheia">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path
                   d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3">
                 </path>
               </svg>
-              <span>Sair da Tela Cheia</span>
             </button>
           </div>
 
