@@ -1,6 +1,6 @@
 {
   "app": "MPBTube",
-  "version": 1,
+  "version": 2,
   "course": "História da Música Popular Brasileira",
   "institution": "DAC / UFSCar",
   "professor": "Prof. Dr. Glauber Santiago",
@@ -37,7 +37,10 @@
           "lessonNumber": 1
         }
       ],
-      "importedAt": 1794500001000
+      "importedAt": 1794500001000,
+      "block": "Bloco I — Matrizes Formadoras e Gêneros Urbanos Fundadores",
+      "summary": "Esta aula inaugural problematiza a historiografia tradicional da MPB — superando visões lineares restritas ao eixo urbano — e investiga as matrizes afro-brasileiras de origem banto (Congo-Angola) no Sudeste e no Maranhão. A partir do Jongo/Caxambu do Vale do Paraíba e dos morros cariocas e do Tambor de Crioula maranhense, analisa-se como a polirritmia dos tambores afinados a fogo, o canto responsorial, os pontos enigmáticos e a coreografia da umbigada/punga lançaram as bases estruturais do samba e da canção popular, tendo em Clementina de Jesus um elo vivo entre o terreiro e o palco moderno.",
+      "listeningFocus": "Escuta dirigida: observe a relação entre os tambores graves (caxambu / tambor grande) e os agudos/repiques (candongueiro / crivador), o padrão responsorial solo–coro e o timbre vocal ancestral em Clementina de Jesus. Transposição didática (Lei nº 10.639/2003): práticas rítmicas com palmas, corpos e tambores trabalhando memória quilombola e comunidades jongueiras."
     },
     "aula_02": {
       "id": "aula_02",
@@ -80,7 +83,10 @@
           "lessonNumber": 2
         }
       ],
-      "importedAt": 1794500002000
+      "importedAt": 1794500002000,
+      "block": "Bloco I — Matrizes Formadoras e Gêneros Urbanos Fundadores",
+      "summary": "Dedicada às matrizes afro-baianas e pernambucanas, a aula aborda a música sacra dos terreiros de Candomblé e os folguedos do Coco de Roda e do Maracatu em suas duas vertentes: Baque Virado (Nação) e Baque Solto (Rural). Estuda-se a função estrutural das linhas-guia de agogô, a hierarquia dos atabaques (rum, rumpi e lé) e o peso das alfaias e loas, culminando na análise de como essas matrizes rituais foram transpostas para o violão, a harmonia e o arranjo coral-orquestral na MPB a partir de Os Afro-Sambas (1966), de Baden Powell e Vinicius de Moraes com César Guerra-Peixe, e da polifonia afro-barroca d'Os Tincoãs.",
+      "listeningFocus": "Escuta dirigida: identifique a linha-guia (timeline) assimétrica do agogô/gonguê, compare os toques de ijexá e maracatu de baque virado versus baque solto e analise os arranjos de Guerra-Peixe em 'Canto de Ossanha'. Transposição didática (Lei nº 10.639/2003): respeito à diversidade afro-religiosa e solfejo rítmico de células em 16 pulsos."
     },
     "aula_03": {
       "id": "aula_03",
@@ -113,7 +119,10 @@
           "lessonNumber": 3
         }
       ],
-      "importedAt": 1794500003000
+      "importedAt": 1794500003000,
+      "block": "Bloco I — Matrizes Formadoras e Gêneros Urbanos Fundadores",
+      "summary": "Investiga a gênese da primeira música popular urbana e instrumental brasileira no Rio de Janeiro da virada do século XIX para o XX. O foco recai sobre o processo de 'abrasileiramento' das danças europeias de salão (polca, schottisch, valsa e mazurca) pela inflexão rítmica afro-brasileira da síncope, dando origem ao maxixe e ao choro. Destacam-se a dinâmica coletiva das rodas de choro, o contraponto improvisado do violão de 7 cordas, o pioneirismo autoral e teatral de Chiquinha Gonzaga e a arquitetura contrapontística e orquestral de Pixinguinha.",
+      "listeningFocus": "Escuta dirigida: acompanhe a forma rondó tradicional (AABBACCA), as modulações entre as partes, as 'baixarias' contrapontísticas do violão de 7 cordas e a síncope característica entre melodia e acompanhamento (cavaquinho/pandeiro). Transposição didática: papel das compositoras (Chiquinha Gonzaga) e prática de roda instrumental na escola."
     },
     "aula_04": {
       "id": "aula_04",
@@ -156,7 +165,10 @@
           "lessonNumber": 4
         }
       ],
-      "importedAt": 1794500004000
+      "importedAt": 1794500004000,
+      "block": "Bloco I — Matrizes Formadoras e Gêneros Urbanos Fundadores",
+      "summary": "Percorre a formação e as transformações do samba urbano a partir da diáspora afro-baiana na Pequena África e nas casas das tias baianas (como Tia Ciata) na Praça Onze. Analisa-se a mudança de paradigma rítmico entre o samba amaxixado da primeira metade dos anos 1910–20 ('Pelo Telefone') e o samba sincopado do Estácio (Ismael Silva), pensado para o desfile das escolas de samba, além da tradição poético-melódica das velhas guardas dos morros cariocas (Portela, Mangueira) e das especificidades do samba rural e urbano paulista (Geraldo Filme e Adoniran Barbosa).",
+      "listeningFocus": "Escuta dirigida: contraste o desenho rítmico do samba amaxixado de 1917 com o paradigma do Estácio e as variantes de samba de roda, partido-alto e samba-enredo; observe a prosódia coloquial paulistana versus a carioca. Transposição didática (Lei nº 10.639/2003): territorialidades negras urbanas e memória oral das velhas guardas."
     },
     "aula_05": {
       "id": "aula_05",
@@ -189,7 +201,10 @@
           "lessonNumber": 5
         }
       ],
-      "importedAt": 1794500005000
+      "importedAt": 1794500005000,
+      "block": "Bloco I — Matrizes Formadoras e Gêneros Urbanos Fundadores",
+      "summary": "Aborda a consolidação da indústria cultural e fonográfica no Brasil entre as décadas de 1920 e 1950 através da radiodifusão, com foco no apogeu da Rádio Nacional do Rio de Janeiro. Examina-se a criação de um padrão sinfônico-popular brasileiro pelas grandes orquestras de estúdio e arranjadores como Radamés Gnattali e Leo Peracchi, o florescimento das marchinhas carnavalescas (Braguinha) e do samba-canção, e o fenômeno de massas dos programas de auditório e das grandes vozes e rainhas do rádio (Carmen Miranda, Orlando Silva, Dalva de Oliveira, Marlene e Emilinha Borba).",
+      "listeningFocus": "Escuta dirigida: repare na escrita orquestral para sopros e cordas (especialmente metais no samba-exaltação e no samba-canção), nas mudanças acústicas trazidas pela gravação elétrica (pós-1927) e pelo microfone na emissão vocal. Transposição didática: análise crítica da mídia radiofônica e construção de símbolos nacionais."
     },
     "aula_06": {
       "id": "aula_06",
@@ -222,7 +237,10 @@
           "lessonNumber": 6
         }
       ],
-      "importedAt": 1794500006000
+      "importedAt": 1794500006000,
+      "block": "Bloco II — Brasil Profundo: Tradições Regionais, Fronteiras e Religiosidades",
+      "summary": "Adentrando o Bloco II ('Brasil Profundo'), esta aula estuda a formação histórica da música caipira de raiz na Paulistânia (interior de São Paulo, Minas Gerais, Goiás e Mato Grosso do Sul) e a organologia da viola brasileira de dez cordas. Analisam-se as matrizes rurais e devocionais (moda de viola, catira, recortado e folias), o canto em dueto de terças e sextas paralelas, o marco fundador das gravações independentes produzidas por Cornélio Pires em 1929, a criação do pagode de viola por Tião Carreiro e a atuação de Inezita Barroso, Renato Teixeira, Almir Sater e Pena Branca & Xavantinho.",
+      "listeningFocus": "Escuta dirigida: identifique os intervalos paralelos das duplas (primeira e segunda voz em 3ªs e 6ªs), a sonoridade metálica das cinco ordens duplas da viola e o recorte rítmico sincopado do pagode de viola de Tião Carreiro ('Pagode em Brasília'). Transposição didática: desconstrução de preconceitos contra o mundo rural e pesquisa sobre luthieria popular."
     },
     "aula_07": {
       "id": "aula_07",
@@ -255,7 +273,10 @@
           "lessonNumber": 7
         }
       ],
-      "importedAt": 1794500007000
+      "importedAt": 1794500007000,
+      "block": "Bloco II — Brasil Profundo: Tradições Regionais, Fronteiras e Religiosidades",
+      "summary": "Explora a riqueza musical histórica da Região Centro-Oeste em suas matrizes pantaneiras, cerratenses e de fronteira platina. Na Baixada Cuiabana e no Pantanal (MT/MS), estuda-se a luthieria e a sonoridade singular da viola de cocho (acompanhada pelo ganzá e pelo mocho) no Cururu e no Siriri, bem como a fusão pós-Guerra do Paraguai que originou o Rasqueado Cuiabano. No eixo sul-mato-grossense e goiano, examinam-se o compasso 6/8 com acentuação cruzada do Chamamé, a Polca Paraguaia, a Guarânia e os rituais históricos das Folias do Divino e da Catira.",
+      "listeningFocus": "Escuta dirigida: perceba o timbre abafado e percussivo da viola de cocho (cordas de tripa/náilon sobre tampo fino), a polirritmia típica da fronteira guarani-platina (2 contra 3 entre baixo em 3/4 e melodia em 6/8) e o sapateado percussivo da catira goiana. Transposição didática: cartografia sonora das fronteiras e culturas pantaneiras/cerratenses."
     },
     "aula_08": {
       "id": "aula_08",
@@ -288,7 +309,10 @@
           "lessonNumber": 8
         }
       ],
-      "importedAt": 1794500008000
+      "importedAt": 1794500008000,
+      "block": "Bloco II — Brasil Profundo: Tradições Regionais, Fronteiras e Religiosidades",
+      "summary": "Cartografa as matrizes históricas, indígenas, afro-amazônicas e caboclas da Região Norte entre os séculos XVIII e XX. No Pará, analisa-se o Carimbó tradicional de 'pau e corda' (tambores curimbó escavados em tronco, maracás, banjo e sopros) com Mestre Verequete, o Siriá de Mestre Cupijó e a invenção da Guitarrada nos anos 1970 por Mestre Vieira e Mestre Curica em diálogo com ritmos caribenhos. No Amapá e no Amazonas, estudam-se as caixas e os 'ladrões' (crônicas cantadas) do Marabaixo afro-amapaense e as raízes comunitárias das toadas de Boi-Bumbá em Parintins.",
+      "listeningFocus": "Escuta dirigida: observe a fusão entre o curimbó/maracá indígena, as caixas do Marabaixo e o sopro/cordas ibérico-caribenhos (banjo caboclo e guitarra solista na guitarrada). Transposição didática (Leis nº 10.639/03 e 11.645/08): presença indígena amazônica e protagonismo das irmandades negras do Amapá."
     },
     "aula_09": {
       "id": "aula_09",
@@ -321,7 +345,10 @@
           "lessonNumber": 9
         }
       ],
-      "importedAt": 1794500009000
+      "importedAt": 1794500009000,
+      "block": "Bloco II — Brasil Profundo: Tradições Regionais, Fronteiras e Religiosidades",
+      "summary": "Analisa o processo de estilização urbana e projeção nacional dos gêneros rurais nordestinos nos anos 1940 e 1950 a partir do rádio e do disco no Sudeste. O foco recai sobre a invenção estética e comercial do Baião por Luiz Gonzaga e Humberto Teixeira (e depois Zé Dantas), a codificação organológica do 'trio básico' de forró (sanfona, zabumba e triângulo), o uso de escalas modais nordestinas (modo mixolídio e lídio com 4ª aumentada/7ª menor) no xote e no xaxado, e o virtuosismo rítmico-sincopado de Jackson do Pandeiro no coco embolado.",
+      "listeningFocus": "Escuta dirigida: distinga as células rítmicas da zabumba (bacalhau no agudo + maceta no grave) entre baião, xote e xaxado, identifique a sonoridade modal nordestina nas melodias e analise a dicção rítmica percussiva em Jackson do Pandeiro. Transposição didática: polirritmia corporal em grupo inspirada no trio pé-de-serra."
     },
     "aula_10": {
       "id": "aula_10",
@@ -354,7 +381,10 @@
           "lessonNumber": 10
         }
       ],
-      "importedAt": 1794500010000
+      "importedAt": 1794500010000,
+      "block": "Bloco II — Brasil Profundo: Tradições Regionais, Fronteiras e Religiosidades",
+      "summary": "Investiga o papel histórico e formativo das tradições religiosas cristãs — católicas e protestantes — na música brasileira. Na vertente católica, percorre do modalismo arcaico e da polifonia popular dos Congados, Reinados e Folias até a renovação litúrgica pós-Concílio Vaticano II (1962–65), que introduziu o português, o violão e os ritmos brasileiros na missa (Pe. Geraldo Leite Bastos, Irmã Míria Kolling, Pe. Zezinho e a histórica Missa dos Quilombos de Milton Nascimento). Na vertente evangélica, aborda desde a hinódia a quatro vozes do século XIX (Sarah Kalley e o hinário Salmos e Hinos, de 1861, estudado por Dorotéa Kerr) até a incorporação do samba, choro, bossa e viola caipira nos anos 1970–80 por Vencedores por Cristo, Janires/Rebanhão e João Alexandre.",
+      "listeningFocus": "Escuta dirigida: compare a escrita coral homofônica a quatro vozes da hinódia protestante oitocentista com a prosódia de MPB em João Alexandre/Vencedores por Cristo e o sincretismo litúrgico com atabaques na Missa dos Quilombos. Transposição didática: compreensão laica e histórica do impacto das igrejas e irmandades na formação musical popular brasileira."
     },
     "aula_11": {
       "id": "aula_11",
@@ -387,7 +417,10 @@
           "lessonNumber": 11
         }
       ],
-      "importedAt": 1794500011000
+      "importedAt": 1794500011000,
+      "block": "Bloco III — Modernização Estética, Vanguardas e Indústria Fonográfica",
+      "summary": "Abrindo o Bloco III sobre modernização estética, esta aula examina a revolução silenciosa da Bossa Nova no Rio de Janeiro (1958–1964). Analisa-se a síntese camerística entre a célula rítmica do samba carioca e a harmonia estendida do cool jazz e do impressionismo, materializada na 'batida' sincopada de violão e no canto íntimo/coloquial de João Gilberto, na arquitetura harmônico-melódica de Tom Jobim e na poética de Vinicius de Moraes, Carlos Lyra, Roberto Menescal e Johnny Alf, que redefiniram o padrão de escuta e projeção internacional da música brasileira.",
+      "listeningFocus": "Escuta dirigida: observe a independência rítmica entre o polegar (baixo alternado) e os dedos do violão de João Gilberto em contraste com a melodia cantada sem vibrato excessivo ('canto falado'), além das tensões harmônicas (7M, 9, 11#, 13) e baixos cromáticos de Tom Jobim. Transposição didática: análise comparada de interpretações pré e pós-1958 ('Chega de Saudade')."
     },
     "aula_12": {
       "id": "aula_12",
@@ -410,7 +443,10 @@
           "lessonNumber": 12
         }
       ],
-      "importedAt": 1794500012000
+      "importedAt": 1794500012000,
+      "block": "Bloco III — Modernização Estética, Vanguardas e Indústria Fonográfica",
+      "summary": "Estuda o turbilhão estético e político da segunda metade dos anos 1960, quando os grandes Festivais da Canção (TV Excelsior, TV Record e TV Globo) consolidaram a sigla 'MPB' e polarizaram os debates entre canção de protesto nacional-popular e vanguarda. A partir do marco de 1967 ('Alegria, Alegria' e 'Domingo no Parque') e do álbum-manifesto Tropicália ou Panis et Circensis (1968), analisa-se a antropofagia cultural oswaldiana aplicada por Caetano Veloso, Gilberto Gil, Os Mutantes, Gal Costa, Tom Zé e pelo maestro Rogério Duprat, fundindo guitarras elétricas, cultura pop, tradição baiana e colagem eletroacústica.",
+      "listeningFocus": "Escuta dirigida: identifique o choque timbrístico e estilístico dentro dos arranjos de Rogério Duprat (berimbau e iê-iê-iê com orquestra atonal em 'Domingo no Parque'; banda de rock, fanfarra e citação erudita em 'Panis et Circensis'). Transposição didática: interdisciplinaridade entre música, cinema (Glauber Rocha), artes visuais (Hélio Oiticica) e história política do Brasil."
     },
     "aula_13": {
       "id": "aula_13",
@@ -443,7 +479,10 @@
           "lessonNumber": 13
         }
       ],
-      "importedAt": 1794500013000
+      "importedAt": 1794500013000,
+      "block": "Bloco III — Modernização Estética, Vanguardas e Indústria Fonográfica",
+      "summary": "Compara dois projetos distintos de sofisticação estética de matrizes regionais na década de 1970: o Clube da Esquina, em Minas Gerais, e o Movimento Armorial, em Pernambuco. Em Belo Horizonte, Milton Nascimento, Lô Borges, Beto Guedes, Toninho Horta e Wagner Tiso fundiram o canto sacro colonial mineiro, modinhas e folias com o jazz modal, os Beatles e o rock progressivo no álbum duplo de 1972. No Recife, sob liderança teórica de Ariano Suassuna e direção musical de Antônio Madureira, Cussy de Almeida e Antônio Nóbrega (Quinteto Armorial), buscou-se uma música de câmara erudita brasileira enraizada no romanceiro ibérico, na rabeca, no pífano e na viola nordestina.",
+      "listeningFocus": "Escuta dirigida: contraste a sonoridade elétrica/sinfônica e as inversões harmônicas abertas do Clube da Esquina (extensão vocal e falsete de Milton, contrapontos de guitarra e piano) com a escrita camerística acústica e modal do Quinteto Armorial (timbres de rabeca, flauta/pífano e viola sertaneja). Transposição didática: projetos estéticos descentralizados fora do eixo RJ–SP."
     },
     "aula_14": {
       "id": "aula_14",
@@ -476,7 +515,10 @@
           "lessonNumber": 14
         }
       ],
-      "importedAt": 1794500014000
+      "importedAt": 1794500014000,
+      "block": "Bloco III — Modernização Estética, Vanguardas e Indústria Fonográfica",
+      "summary": "Aborda a transição do final da ditadura e a redemocratização (1979–1989) a partir de dois fenômenos urbanos: a Vanguarda Paulista e a explosão do BRock. Em torno do teatro Lira Paulistana, analisa-se a revolução da produção fonográfica independente e experimental: o atonalismo/serialismo aliado à narrativa de quadrinhos em Arrigo Barnabé (Clara Crocodilo, 1980), o groove afro-paulistano de Itamar Assumpção (Banda Isca de Polícia) e a pesquisa entoativa sobre fala e canção do Grupo Rumo (Luiz Tatit e Ná Ozzetti). Em paralelo, estuda-se a consolidação do rock brasileiro dos anos 1980 (Brasília, SP e RJ) como crônica juvenil urbana a partir do pós-punk, ska e new wave.",
+      "listeningFocus": "Escuta dirigida: examine a prosódia falada e as séries dodecafônicas em 'Clara Crocodilo', os ostinatos assimétricos da Banda Isca de Polícia e as influências de ska/reggae e pós-punk nas bandas dos anos 80. Transposição didática: debate sobre produção cultural independente, autonomia do artista e relação entre entoação da fala e melodia."
     },
     "aula_15": {
       "id": "aula_15",
@@ -529,7 +571,10 @@
           "lessonNumber": 15
         }
       ],
-      "importedAt": 1794500015000
+      "importedAt": 1794500015000,
+      "block": "Bloco IV — Culturas Periféricas, Hibridismos e Cenário Contemporâneo",
+      "summary": "Iniciando o Bloco IV sobre culturas urbanas periféricas, a aula reconstrói a genealogia negra e periférica das pistas e ruas de São Paulo e do Rio de Janeiro entre os anos 1970 e 1990. Parte-se dos bailes Soul/Movimento Black Rio (Tim Maia, Banda Black Rio, Toni Tornado) e do balanço do Samba-Rock paulistano (Jorge Ben, Trio Mocotó) para compreender dois marcos fundadores: a nacionalização do Miami Bass em português com baterias eletrônicas Roland TR-808 por DJ Marlboro no álbum Funk Brasil (1989) e no funk melody dos anos 90, e o nascimento fonográfico do Hip-Hop/Rap nacional na coletânea Hip-Hop Cultura de Rua (1988) e em Holocausto Urbano (1990), dos Racionais MC's.",
+      "listeningFocus": "Escuta dirigida: observe como os metais e o baixo do soul dos anos 70 evoluem para os timbres eletrônicos da Roland TR-808 no funk carioca e como o rap paulistano utiliza samplers de Jorge Ben, Tim Maia e Cassiano como base rítmico-harmônica. Transposição didática (Lei nº 10.639/2003): protagonismo juvenil periférico, tecnologia musical e crítica ao preconceito estético."
     },
     "aula_16": {
       "id": "aula_16",
@@ -562,7 +607,10 @@
           "lessonNumber": 16
         }
       ],
-      "importedAt": 1794500016000
+      "importedAt": 1794500016000,
+      "block": "Bloco IV — Culturas Periféricas, Hibridismos e Cenário Contemporâneo",
+      "summary": "Encerra o curso conectando a revolução estética do Manguebeat no Recife dos anos 1990 aos múltiplos caminhos da MPB no século XXI. Sob a metáfora da 'parabólica enfiada na lama' (Manifesto Caranguejos com Cérebro), analisa-se como Chico Science & Nação Zumbi e Mundo Livre S/A articularam as alfaias do maracatu de baque virado, o coco e a ciranda com guitarras pesadas, psicodelia, hip-hop e samplers. Por fim, discute-se a reconfiguração contemporânea da canção brasileira em diálogos entre tradição, pop e experimentação na obra de Marisa Monte, Lenine, Elza Soares (em sua fase vanguardista tardia), Criolo, Emicida, Céu e Metá Metá.",
+      "listeningFocus": "Escuta dirigida: analise a convivência de três tambores alfaias e gonguê do maracatu com guitarra distorcida e fraseado de embolada/rap em Chico Science & Nação Zumbi, bem como os arranjos íntimos contemporâneos (Tiny Desk Brasil, Elza Soares, Metá Metá). Transposição didática: fechamento em espiral conectando a Aula 01 (matrizes afro-brasileiras e maracatu) ao século XXI."
     }
   },
   "videos": [
@@ -1773,5 +1821,13 @@
       "thumb": "https://i.ytimg.com/vi/C7QmYbGiJxA/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=C7QmYbGiJxA"
     }
-  ]
+  ],
+  "syllabus": {
+    "course": "História da Música Popular Brasileira",
+    "program": "Licenciatura em Música",
+    "workload": "60 horas-aula (16 encontros semanais)",
+    "modality": "Presencial / Híbrida (com curadoria audiovisual de apoio)",
+    "institution": "DAC / UFSCar",
+    "professor": "Prof. Dr. Glauber Santiago"
+  }
 }
