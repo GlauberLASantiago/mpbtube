@@ -2355,6 +2355,145 @@
       white-space: nowrap;
     }
 
+    /* Modal de Confirmação no Estilo do App */
+    .app-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: rgba(2, 6, 23, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .app-modal-backdrop.open {
+      display: flex;
+    }
+
+    .app-modal-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      overflow: hidden;
+      animation: toastIn 0.18s ease;
+    }
+
+    .app-modal-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1.05rem 1.15rem 0.65rem;
+    }
+
+    .app-modal-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(239, 68, 68, 0.14);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.28);
+    }
+
+    .app-modal-title {
+      flex: 1;
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text-primary);
+    }
+
+    .app-modal-body {
+      padding: 0 1.15rem 1rem;
+      font-size: 0.87rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .app-modal-consequences {
+      margin-top: 0.7rem;
+      padding: 0.7rem 0.85rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-soft);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .app-modal-consequences-title {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent-text);
+      margin-bottom: 0.35rem;
+    }
+
+    .app-modal-consequences ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .app-modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.55rem;
+      padding: 0.8rem 1.15rem 1rem;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-context-box);
+    }
+
+    .btn-modal-cancel {
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      font-weight: 600;
+      background: var(--bg-surface-soft);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      transition: all var(--transition);
+    }
+
+    .btn-modal-cancel:hover {
+      background: var(--bg-surface-hover);
+    }
+
+    .btn-modal-confirm {
+      padding: 0.5rem 0.95rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      font-weight: 700;
+      background: var(--accent);
+      color: #ffffff;
+      border: 1px solid transparent;
+      transition: all var(--transition);
+    }
+
+    .btn-modal-confirm.danger {
+      background: #dc2626;
+      color: #ffffff;
+    }
+
+    .btn-modal-confirm.danger:hover {
+      background: #b91c1c;
+    }
+
     .toast-action:hover {
       background: var(--accent);
     }
@@ -3516,6 +3655,34 @@
 
   <!-- Notificações Toast -->
   <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- MODAL DE CONFIRMAÇÃO NO ESTILO DO APP -->
+  <div id="app-confirm-modal" class="app-modal-backdrop" role="dialog" aria-modal="true"
+    aria-labelledby="app-confirm-title" aria-describedby="app-confirm-message">
+    <div class="app-modal-card">
+      <div class="app-modal-header">
+        <div class="app-modal-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </div>
+        <h3 id="app-confirm-title" class="app-modal-title">Confirmar remoção</h3>
+      </div>
+      <div class="app-modal-body">
+        <p id="app-confirm-message" style="margin: 0;"></p>
+        <div id="app-confirm-consequences" class="app-modal-consequences" style="display: none;">
+          <span class="app-modal-consequences-title">O que isso acarretará:</span>
+          <ul id="app-confirm-consequences-list"></ul>
+        </div>
+      </div>
+      <div class="app-modal-footer">
+        <button type="button" id="btn-app-confirm-cancel" class="btn-modal-cancel">Cancelar</button>
+        <button type="button" id="btn-app-confirm-ok" class="btn-modal-confirm danger">Remover vídeo</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Banco Inicial Embutido (Garante funcionamento instantâneo 100% offline/file://) -->
   <script id="mpbtube-default-seed"
@@ -6669,21 +6836,92 @@
         showToast(`"${video.title}" removido de Continuar Assistindo (mantido no acervo).`);
       }
 
-      function removeVideo(videoId) {
+      function showAppConfirm({
+        title = 'Confirmar ação',
+        message = '',
+        consequences = [],
+        confirmText = 'Confirmar',
+        cancelText = 'Cancelar',
+        danger = true
+      } = {}) {
+        const modal = document.getElementById('app-confirm-modal');
+        const titleEl = document.getElementById('app-confirm-title');
+        const msgEl = document.getElementById('app-confirm-message');
+        const consWrap = document.getElementById('app-confirm-consequences');
+        const consList = document.getElementById('app-confirm-consequences-list');
+        const btnOk = document.getElementById('btn-app-confirm-ok');
+        const btnCancel = document.getElementById('btn-app-confirm-cancel');
+
+        if (!modal || !titleEl || !msgEl || !btnOk || !btnCancel) {
+          return Promise.resolve(window.confirm(message));
+        }
+
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        btnOk.textContent = confirmText;
+        btnCancel.textContent = cancelText;
+        btnOk.classList.toggle('danger', Boolean(danger));
+
+        if (consWrap && consList) {
+          consList.innerHTML = '';
+          if (Array.isArray(consequences) && consequences.length > 0) {
+            consequences.forEach((item) => {
+              const li = document.createElement('li');
+              li.textContent = item;
+              consList.appendChild(li);
+            });
+            consWrap.style.display = 'block';
+          } else {
+            consWrap.style.display = 'none';
+          }
+        }
+
+        modal.classList.add('open');
+        setTimeout(() => btnCancel.focus(), 10);
+
+        return new Promise((resolve) => {
+          const cleanup = (result) => {
+            modal.classList.remove('open');
+            btnOk.removeEventListener('click', onOk);
+            btnCancel.removeEventListener('click', onCancel);
+            modal.removeEventListener('click', onBackdrop);
+            document.removeEventListener('keydown', onKey);
+            resolve(result);
+          };
+          const onOk = () => cleanup(true);
+          const onCancel = () => cleanup(false);
+          const onBackdrop = (e) => { if (e.target === modal) cleanup(false); };
+          const onKey = (e) => { if (e.key === 'Escape') cleanup(false); };
+
+          btnOk.addEventListener('click', onOk);
+          btnCancel.addEventListener('click', onCancel);
+          modal.addEventListener('click', onBackdrop);
+          document.addEventListener('keydown', onKey);
+        });
+      }
+
+      async function removeVideo(videoId) {
         const idx = state.videos.findIndex((v) => v.id === videoId);
         if (idx === -1) return;
 
         const target = state.videos[idx];
-        const ok = window.confirm(
-          `Remover "${target.title}" do aplicativo?\n\n` +
-          `O que isso acarretará:\n` +
-          `• O vídeo será excluído permanentemente da sua biblioteca local e do tópico/lista atual.\n` +
-          `• Todo o progresso de reprodução, marcação de assistido e favorito deste vídeo serão perdidos.`
-        );
+        const ok = await showAppConfirm({
+          title: 'Remover vídeo do aplicativo?',
+          message: `Você está prestes a remover "${target.title}".`,
+          consequences: [
+            'O vídeo será excluído permanentemente da sua biblioteca local e do tópico/lista atual.',
+            'Todo o progresso de reprodução, marcação de assistido e favorito deste vídeo serão perdidos.'
+          ],
+          confirmText: 'Remover vídeo',
+          cancelText: 'Cancelar',
+          danger: true
+        });
         if (!ok) return;
 
-        const [removed] = state.videos.splice(idx, 1);
-        undoBuffer = { type: 'video', item: removed, index: idx };
+        const currentIdx = state.videos.findIndex((v) => v.id === videoId);
+        if (currentIdx === -1) return;
+        const [removed] = state.videos.splice(currentIdx, 1);
+        undoBuffer = { type: 'video', item: removed, index: currentIdx };
 
         if (activePlayMode === 'video' && activeVideoId === videoId) {
           closeCinemaPlayer();
@@ -6796,12 +7034,22 @@
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePlaylistMenu(); });
       window.addEventListener('resize', closePlaylistMenu);
 
-      function deleteEntirePlaylist(playlistId) {
+      async function deleteEntirePlaylist(playlistId) {
         const plMeta = state.playlists[playlistId];
         if (!plMeta) return;
 
         const total = state.videos.filter((v) => v.playlistId === playlistId).length;
-        const ok = window.confirm(`Excluir "${plMeta.title || plMeta.name}" e seus ${total} vídeo(s)?\n\nVocê poderá desfazer logo após excluir ou restaurar o acervo padrão a qualquer momento.`);
+        const ok = await showAppConfirm({
+          title: 'Excluir tópico ou lista?',
+          message: `Excluir "${plMeta.title || plMeta.name}" e seus ${total} vídeo(s)?`,
+          consequences: [
+            'O tópico/lista e os vídeos vinculados serão removidos da sua biblioteca local.',
+            'Você poderá desfazer logo após excluir ou restaurar o acervo padrão a qualquer momento.'
+          ],
+          confirmText: 'Excluir',
+          cancelText: 'Cancelar',
+          danger: true
+        });
         if (!ok) return;
 
         const removedVideos = state.videos.filter((v) => v.playlistId === playlistId);
