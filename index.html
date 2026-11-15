@@ -2405,6 +2405,12 @@
       border: 1px solid rgba(239, 68, 68, 0.28);
     }
 
+    .app-modal-icon.info {
+      background: var(--accent-soft);
+      color: var(--accent-text);
+      border-color: rgba(217, 119, 6, 0.35);
+    }
+
     .app-modal-title {
       flex: 1;
       margin: 0;
@@ -4381,9 +4387,23 @@
         const existing = state.videos.find((v) => v.id === videoId);
         if (existing) {
           urlInput.value = '';
+          if (newListNameInput) newListNameInput.value = '';
           updateInputDetectionUI();
-          openVideoInCinema(existing.id);
-          showToast(`"${existing.title}" já estava na sua biblioteca! Abrindo no player...`);
+          const openIt = await showAppConfirm({
+            title: 'Este vídeo já está no aplicativo',
+            message: `O vídeo "${existing.title}" já faz parte do seu acervo e não foi adicionado novamente para evitar duplicidade.`,
+            consequencesTitle: 'Onde ele está salvo:',
+            consequences: [
+              existing.playlistName ? `Lista / Tópico: ${existing.playlistName}` : 'Acervo MPBTube'
+            ],
+            confirmText: 'Abrir no Player',
+            cancelText: 'Fechar',
+            danger: false
+          });
+          if (openIt) {
+            closeMobileSidebar();
+            openVideoInCinema(existing.id);
+          }
           return;
         }
 
@@ -6839,15 +6859,18 @@
       function showAppConfirm({
         title = 'Confirmar ação',
         message = '',
+        consequencesTitle = 'O que isso acarretará:',
         consequences = [],
         confirmText = 'Confirmar',
         cancelText = 'Cancelar',
         danger = true
       } = {}) {
         const modal = document.getElementById('app-confirm-modal');
+        const iconEl = modal ? modal.querySelector('.app-modal-icon') : null;
         const titleEl = document.getElementById('app-confirm-title');
         const msgEl = document.getElementById('app-confirm-message');
         const consWrap = document.getElementById('app-confirm-consequences');
+        const consTitleEl = consWrap ? consWrap.querySelector('.app-modal-consequences-title') : null;
         const consList = document.getElementById('app-confirm-consequences-list');
         const btnOk = document.getElementById('btn-app-confirm-ok');
         const btnCancel = document.getElementById('btn-app-confirm-cancel');
@@ -6861,6 +6884,8 @@
         btnOk.textContent = confirmText;
         btnCancel.textContent = cancelText;
         btnOk.classList.toggle('danger', Boolean(danger));
+        if (iconEl) iconEl.classList.toggle('info', !danger);
+        if (consTitleEl) consTitleEl.textContent = consequencesTitle;
 
         if (consWrap && consList) {
           consList.innerHTML = '';
