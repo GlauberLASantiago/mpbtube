@@ -5950,7 +5950,24 @@
               openPlaylistMenu(editPlBtn, plMeta.id);
             };
 
+            const sharePlBtn = document.createElement('button');
+            sharePlBtn.type = 'button';
+            sharePlBtn.className = 'btn-ghost';
+            sharePlBtn.title = `Compartilhar link e convite de estudo para "${plMeta.name}"`;
+            sharePlBtn.innerHTML = `
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+              <span>Compartilhar</span>
+            `;
+            sharePlBtn.onclick = () => shareTopic(plMeta);
+
             actionsGroup.appendChild(playLessonBtn);
+            actionsGroup.appendChild(sharePlBtn);
             actionsGroup.appendChild(editPlBtn);
             if (activeFilter.startsWith('playlist:')) {
               const showAllBtn = document.createElement('button');
@@ -5968,6 +5985,10 @@
               `;
               showAllBtn.onclick = () => {
                 activeFilter = 'all';
+                if (window.history && typeof window.history.replaceState === 'function' && window.location.search.includes('topico=')) {
+                  const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
+                  window.history.replaceState(null, '', cleanUrl);
+                }
                 renderAll();
               };
               actionsGroup.appendChild(showAllBtn);
@@ -7713,13 +7734,73 @@
         }
       }
 
+      async function shareTopic(plMeta) {
+        if (!plMeta || !plMeta.id) return;
+        const baseUrl = `${window.location.origin}${window.location.pathname}`;
+        const shareUrl = `${baseUrl}?topico=${encodeURIComponent(plMeta.id)}`;
+        const tagPart = plMeta.tag ? ` (${plMeta.tag})` : '';
+        const inviteText = `🎵 Convite de estudo no MPBTube!\nExplore o tópico "${plMeta.name}"${tagPart} com documentários, registros históricos e guia de escuta:`;
+        const fullMessage = `${inviteText}\n${shareUrl}`;
+
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: `MPBTube — ${plMeta.name}`,
+              text: inviteText,
+              url: shareUrl
+            });
+            return;
+          } catch (err) {
+            if (err && err.name === 'AbortError') return;
+          }
+        }
+
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(fullMessage);
+            showToast(`Convite e link de "${plMeta.name}" copiados! Cole onde desejar compartilhar.`);
+            return;
+          }
+        } catch (e) { }
+
+        await showAppConfirm({
+          title: `Compartilhar "${plMeta.name}"`,
+          message: inviteText,
+          consequencesTitle: 'Link direto do tópico:',
+          consequences: [shareUrl],
+          confirmText: 'Fechar',
+          cancelText: 'Ok',
+          danger: false
+        });
+      }
+
+      function applyUrlTopicFilter() {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const topicParam = params.get('topico');
+          if (topicParam && state.playlists[topicParam]) {
+            activeFilter = `playlist:${topicParam}`;
+            activeCategory = 'all';
+            return topicParam;
+          }
+        } catch (e) { }
+        return null;
+      }
+
       // ======================================================================
       // 12. INICIALIZAÇÃO DO MPBTUBE
       // ======================================================================
       initTheme();
       loadLibrary();
+      const initialSharedTopicId = applyUrlTopicFilter();
       renderDidacticSources();
       renderAll();
+      if (initialSharedTopicId) {
+        requestAnimationFrame(() => {
+          const container = document.getElementById('playlists-shelves-container');
+          if (container) container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
       injectYouTubeApiScript();
       initPwa();
     })();
