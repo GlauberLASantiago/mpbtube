@@ -1,4 +1,4 @@
-const CACHE = 'mpbtube-shell-v32';
+const CACHE = 'mpbtube-shell-v33';
 const SHELL = [
   './',
   './index.html',
@@ -7,7 +7,8 @@ const SHELL = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable-192.png',
-  './icons/icon-maskable-512.png'
+  './icons/icon-maskable-512.png',
+  './icons/og-cover.jpg'
 ];
 
 self.addEventListener('install', (e) => {
