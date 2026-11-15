@@ -2021,6 +2021,27 @@
       color: #ffffff;
     }
 
+    .btn-card-icon.favorited,
+    .btn-card-icon.favorited:hover {
+      background: rgba(245, 158, 11, 0.18);
+      color: #f59e0b;
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+
+    .btn-pl-secondary.favorited,
+    .btn-pl-secondary.favorited:hover {
+      background: rgba(245, 158, 11, 0.16);
+      color: #f59e0b;
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+
+    .btn-control.favorited,
+    .btn-control.favorited:hover {
+      background: rgba(245, 158, 11, 0.18);
+      color: #f59e0b;
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+
     .btn-card-icon.danger:hover {
       background: rgba(239, 68, 68, 0.2);
       color: #f87171;
@@ -2552,16 +2573,21 @@
       }
 
       #btn-skip-back,
-      #btn-skip-forward,
-      #btn-restart-active {
+      #btn-restart-active,
+      #btn-skip-forward {
         grid-column: span 2;
+      }
+
+      #btn-prev-in-queue,
+      #btn-next-in-queue {
+        grid-column: span 3;
       }
 
       #btn-mark-completed {
         grid-column: span 4;
       }
 
-      #btn-next-in-queue {
+      #btn-toggle-favorite {
         grid-column: span 2;
       }
 
@@ -2862,6 +2888,14 @@
               placeholder="Nome da coleção (ex: Samba-Canção, Estudos MPB)..." />
           </div>
 
+          <div id="video-target-row" class="playlist-name-row">
+            <label for="video-target-playlist" class="playlist-name-label">Adicionar vídeo na lista:</label>
+            <select id="video-target-playlist" class="playlist-name-input"
+              aria-label="Escolher tópico existente ou criar nova lista"></select>
+            <input type="text" id="new-list-name-input" class="playlist-name-input" style="display: none;"
+              placeholder="Nome da nova lista (ex: MPB Contemporânea)..." />
+          </div>
+
           <div id="import-progress-box" class="import-progress-box" aria-live="polite">
             <div class="import-progress-top">
               <span id="import-progress-label">Extraindo vídeos da playlist...</span>
@@ -2955,13 +2989,31 @@
                 <span>+15s</span>
               </button>
 
+              <button type="button" id="btn-prev-in-queue" class="btn-control"
+                title="Reproduzir vídeo anterior">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="4.5" y="5" width="2.5" height="14"></rect>
+                  <polygon points="19 4 9 12 19 20 19 4"></polygon>
+                </svg>
+                <span>Anterior</span>
+              </button>
+
               <button type="button" id="btn-restart-active" class="btn-control" title="Reiniciar do zero (00:00)">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                   stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="19 20 9 12 19 4 19 20"></polygon>
-                  <line x1="5" y1="19" x2="5" y2="5"></line>
+                  <polyline points="1 4 1 10 7 10"></polyline>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
                 </svg>
                 <span>Reiniciar</span>
+              </button>
+
+              <button type="button" id="btn-next-in-queue" class="btn-control accent"
+                title="Reproduzir próximo vídeo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                  <rect x="17" y="5" width="2.5" height="14"></rect>
+                </svg>
+                <span>Próximo</span>
               </button>
 
               <button type="button" id="btn-mark-completed" class="btn-control success" title="Marcar como assistido">
@@ -2972,13 +3024,12 @@
                 <span>Marcar como assistido</span>
               </button>
 
-              <button type="button" id="btn-next-in-queue" class="btn-control accent"
-                title="Reproduzir próximo vídeo da fila ou playlist">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                  <polygon points="5 4 15 12 5 20 5 4"></polygon>
-                  <rect x="17" y="5" width="2.5" height="14"></rect>
+              <button type="button" id="btn-toggle-favorite" class="btn-control" title="Adicionar aos Meus favoritos">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                 </svg>
-                <span>Próximo</span>
+                <span>Favoritar</span>
               </button>
 
               <button type="button" id="btn-toggle-fullscreen" class="btn-control"
@@ -3001,8 +3052,8 @@
               <div id="move-playlist-wrap" class="move-playlist-wrap" style="display: inline-flex; align-items: center; gap: 0.4rem;">
                 <label for="select-move-playlist"
                   style="font-size: 0.76rem; color: var(--text-muted); font-weight: 600; white-space: nowrap;">Mover:</label>
-                <select id="select-move-playlist" aria-label="Mover vídeo para Minha Lista, Tópico ou Playlist">
-                  <option value="">📌 Minha Lista (Avulso)</option>
+                <select id="select-move-playlist" aria-label="Mover vídeo para Tópico ou Nova Lista">
+                  <option value="">Selecione um tópico ou lista...</option>
                 </select>
               </div>
             </div>
@@ -3393,14 +3444,14 @@
       <!-- PRATELEIRAS DOS 18 TÓPICOS E COLEÇÕES IMPORTADAS -->
       <div id="playlists-shelves-container" style="display: flex; flex-direction: column; gap: 1.65rem;"></div>
 
-      <!-- PRATELEIRA: MINHA LISTA (AVULSOS) -->
+      <!-- PRATELEIRA: MEUS FAVORITOS -->
       <section id="section-watchlist" class="shelf-section" aria-labelledby="heading-watchlist">
         <div class="shelf-header">
           <div class="shelf-title-group">
-            <h2 id="heading-watchlist" class="shelf-title">Minha Lista (Para Assistir)</h2>
+            <h2 id="heading-watchlist" class="shelf-title">Meus favoritos</h2>
             <span id="count-watchlist" class="shelf-count">0</span>
           </div>
-          <span class="shelf-hint">Vídeos avulsos salvos na sua fila de estudos</span>
+          <span class="shelf-hint">Vídeos e playlists marcados como favoritos para acesso rápido</span>
         </div>
         <div id="shelf-watchlist" class="cards-grid"></div>
       </section>
@@ -3512,6 +3563,8 @@
       let activePlayMode = null; // 'video' | 'playlist' | null
       let activeVideoId = null;
       let activeYtPlaylist = null; // { id, listId, name, author, url, lessonId }
+      let activeSessionStartSeconds = 0;
+      let activeSessionPlayConfirmed = false;
 
       let ytPlayer = null;
       let extractorPlayer = null;
@@ -3544,6 +3597,9 @@
       const btnSubmitLabel = document.getElementById('btn-submit-label');
       const playlistNameRow = document.getElementById('playlist-name-row');
       const playlistCustomNameInput = document.getElementById('playlist-custom-name');
+      const videoTargetRow = document.getElementById('video-target-row');
+      const videoTargetPlaylist = document.getElementById('video-target-playlist');
+      const newListNameInput = document.getElementById('new-list-name-input');
       const importProgressBox = document.getElementById('import-progress-box');
       const importProgressLabel = document.getElementById('import-progress-label');
       const importProgressPercent = document.getElementById('import-progress-percent');
@@ -3555,7 +3611,9 @@
       const cinemaVideoTitle = document.getElementById('cinema-video-title');
       const btnOpenYoutubeActive = document.getElementById('btn-open-youtube-active');
       const syncStatusText = document.getElementById('sync-status-text');
+      const btnPrevInQueue = document.getElementById('btn-prev-in-queue');
       const btnNextInQueue = document.getElementById('btn-next-in-queue');
+      const btnToggleFavorite = document.getElementById('btn-toggle-favorite');
       const movePlaylistWrap = document.getElementById('move-playlist-wrap');
       const selectMovePlaylist = document.getElementById('select-move-playlist');
       const playerAspectBox = document.querySelector('.player-aspect-box');
@@ -3962,7 +4020,7 @@
       function isVideoInProgress(video) {
         if (!video || isVideoCompleted(video)) return false;
         const cur = Number(video.currentTime) || 0;
-        return cur > 3;
+        return cur >= 10;
       }
 
       function getProgressPercent(video) {
@@ -3973,7 +4031,7 @@
         if (dur > 0) {
           return Math.min(99, Math.max(2, (cur / dur) * 100));
         }
-        return cur > 3 ? 28 : 0;
+        return cur >= 10 ? 28 : 0;
       }
 
       function getSortedPlaylistEntries() {
@@ -4042,21 +4100,85 @@
         return { type: 'invalid', videoId: null, playlistId: null };
       }
 
+      function populateVideoTargetSelect() {
+        if (!videoTargetPlaylist) return;
+        const prevVal = videoTargetPlaylist.value;
+        videoTargetPlaylist.innerHTML = '';
+        const sorted = getSortedPlaylistEntries();
+        sorted.forEach((pl) => {
+          const opt = document.createElement('option');
+          opt.value = pl.id;
+          opt.textContent = pl.name;
+          videoTargetPlaylist.appendChild(opt);
+        });
+        const newOpt = document.createElement('option');
+        newOpt.value = '__new__';
+        newOpt.textContent = '➕ Criar nova lista...';
+        videoTargetPlaylist.appendChild(newOpt);
+
+        if (activeFilter.startsWith('playlist:') && state.playlists[activeFilter.replace('playlist:', '')]) {
+          videoTargetPlaylist.value = activeFilter.replace('playlist:', '');
+        } else if (prevVal && (prevVal === '__new__' || state.playlists[prevVal])) {
+          videoTargetPlaylist.value = prevVal;
+        } else if (sorted.length > 0) {
+          videoTargetPlaylist.value = sorted[0].id;
+        } else {
+          videoTargetPlaylist.value = '__new__';
+        }
+        if (newListNameInput) {
+          newListNameInput.style.display = videoTargetPlaylist.value === '__new__' ? 'block' : 'none';
+        }
+      }
+
+      function createCustomListInState(rawName) {
+        const clean = String(rawName || '').trim();
+        if (!clean) return null;
+        const baseSlug = slugifyPlaylistName(clean) || 'lista';
+        let plId = `custom_${baseSlug}`;
+        let suffix = 2;
+        while (state.playlists[plId]) {
+          plId = `custom_${baseSlug}_${suffix++}`;
+        }
+        const meta = {
+          id: plId,
+          lessonNumber: null,
+          block: 'Listas Personalizadas',
+          name: clean,
+          title: clean,
+          category: 'all',
+          tag: 'Lista do Usuário',
+          summary: '',
+          historic: '',
+          concepts: '',
+          listeningFocus: '',
+          youtubePlaylists: [],
+          importedAt: Date.now()
+        };
+        state.playlists[plId] = meta;
+        return meta;
+      }
+
       function updateInputDetectionUI() {
         const parsed = parseYouTubeUrl(urlInput.value);
         if (parsed.type === 'playlist') {
           detectedTypePill.textContent = 'Playlist';
           detectedTypePill.classList.add('visible');
           playlistNameRow.classList.add('visible');
+          if (videoTargetRow) videoTargetRow.classList.remove('visible');
           btnSubmitLabel.textContent = 'Importar Playlist';
         } else if (parsed.type === 'video') {
           detectedTypePill.textContent = 'Vídeo';
           detectedTypePill.classList.add('visible');
           playlistNameRow.classList.remove('visible');
+          if (videoTargetRow) {
+            populateVideoTargetSelect();
+            videoTargetRow.classList.add('visible');
+          }
           btnSubmitLabel.textContent = 'Adicionar Vídeo';
         } else {
           detectedTypePill.classList.remove('visible');
           playlistNameRow.classList.remove('visible');
+          if (videoTargetRow) videoTargetRow.classList.remove('visible');
           btnSubmitLabel.textContent = 'Adicionar';
         }
       }
@@ -4089,18 +4211,6 @@
       async function handleAddSingleVideo(videoId) {
         if (!videoId || isImporting) return;
 
-        let targetPlId = null;
-        let targetPlName = null;
-        let targetCategory = activeCategory !== 'all' ? activeCategory : null;
-        if (activeFilter.startsWith('playlist:')) {
-          const plId = activeFilter.replace('playlist:', '');
-          if (state.playlists[plId]) {
-            targetPlId = plId;
-            targetPlName = state.playlists[plId].name;
-            targetCategory = state.playlists[plId].category || targetCategory;
-          }
-        }
-
         const existing = state.videos.find((v) => v.id === videoId);
         if (existing) {
           urlInput.value = '';
@@ -4108,6 +4218,44 @@
           openVideoInCinema(existing.id);
           showToast(`"${existing.title}" já estava na sua biblioteca! Abrindo no player...`);
           return;
+        }
+
+        let targetPlId = null;
+        let targetPlName = null;
+        let targetCategory = activeCategory !== 'all' ? activeCategory : null;
+
+        const chosenVal = videoTargetPlaylist ? videoTargetPlaylist.value : '';
+        if (chosenVal === '__new__') {
+          const newListTitle = newListNameInput ? newListNameInput.value.trim() : '';
+          if (!newListTitle) {
+            showToast('Digite o nome da nova lista para adicionar o vídeo.');
+            if (newListNameInput) newListNameInput.focus();
+            return;
+          }
+          const created = createCustomListInState(newListTitle);
+          if (!created) return;
+          targetPlId = created.id;
+          targetPlName = created.name;
+          targetCategory = created.category || targetCategory;
+        } else if (chosenVal && state.playlists[chosenVal]) {
+          targetPlId = chosenVal;
+          targetPlName = state.playlists[chosenVal].name;
+          targetCategory = state.playlists[chosenVal].category || targetCategory;
+        } else if (activeFilter.startsWith('playlist:') && state.playlists[activeFilter.replace('playlist:', '')]) {
+          const plId = activeFilter.replace('playlist:', '');
+          targetPlId = plId;
+          targetPlName = state.playlists[plId].name;
+          targetCategory = state.playlists[plId].category || targetCategory;
+        } else {
+          const firstPl = getSortedPlaylistEntries()[0];
+          if (firstPl) {
+            targetPlId = firstPl.id;
+            targetPlName = firstPl.name;
+            targetCategory = firstPl.category || targetCategory;
+          } else {
+            showToast('Selecione um tópico existente ou crie uma nova lista.');
+            return;
+          }
         }
 
         btnSubmitImport.disabled = true;
@@ -4123,6 +4271,7 @@
             duration: 0,
             lastWatched: null,
             completed: false,
+            favorite: false,
             playlistId: targetPlId,
             playlistName: targetPlName,
             playlistOrder: state.videos.filter((v) => v.playlistId === targetPlId).length,
@@ -4131,13 +4280,14 @@
             url: `https://www.youtube.com/watch?v=${videoId}`
           };
 
-          state.videos.unshift(newVideo);
+          state.videos.push(newVideo);
           saveLibrary();
           renderAll();
 
           urlInput.value = '';
+          if (newListNameInput) newListNameInput.value = '';
           updateInputDetectionUI();
-          showToast(`Adicionado: "${newVideo.title}"`, 'Assistir Agora', () => {
+          showToast(`Adicionado em "${targetPlName}": "${newVideo.title}"`, 'Assistir Agora', () => {
             openVideoInCinema(newVideo.id);
           });
         } finally {
@@ -4413,6 +4563,7 @@
           duration: dur,
           lastWatched: Number(item.lastWatched || item.updatedAt || 0) || null,
           completed: Boolean(item.completed || (dur > 0 && cur / dur >= 0.95)),
+          favorite: Boolean(item.favorite),
           playlistId: plId,
           playlistName: rawPlName,
           playlistOrder: typeof item.playlistOrder === 'number' ? item.playlistOrder : index,
@@ -4437,7 +4588,8 @@
             thumb: p.thumb || '',
             url: p.url || (p.listId ? `https://www.youtube.com/playlist?list=${p.listId}` : ''),
             lessonId: p.lessonId || plId,
-            lessonNumber: typeof p.lessonNumber === 'number' ? p.lessonNumber : (typeof val.lessonNumber === 'number' ? val.lessonNumber : null)
+            lessonNumber: typeof p.lessonNumber === 'number' ? p.lessonNumber : (typeof val.lessonNumber === 'number' ? val.lessonNumber : null),
+            favorite: Boolean(p.favorite)
           })).filter((p) => p.listId)
           : [];
 
@@ -4767,17 +4919,27 @@
 
       function updatePlayerMovePlaylistSelect(currentVideo) {
         if (!selectMovePlaylist) return;
-        const firstOptionText = (currentVideo && currentVideo.playlistId)
-          ? '📌 Minha Lista (Avulso)'
-          : '📌 Na Minha Lista (Avulso)';
-        selectMovePlaylist.innerHTML = `<option value="">${firstOptionText}</option>`;
-        getSortedPlaylistEntries().forEach((pl) => {
+        selectMovePlaylist.innerHTML = '';
+        const sorted = getSortedPlaylistEntries();
+        if (currentVideo && !currentVideo.playlistId) {
+          const optNone = document.createElement('option');
+          optNone.value = '';
+          optNone.textContent = 'Sem lista (selecione um tópico)';
+          selectMovePlaylist.appendChild(optNone);
+        }
+        sorted.forEach((pl) => {
           const opt = document.createElement('option');
           opt.value = pl.id;
           opt.textContent = pl.name;
           selectMovePlaylist.appendChild(opt);
         });
-        selectMovePlaylist.value = (currentVideo && currentVideo.playlistId) ? currentVideo.playlistId : '';
+        const newOpt = document.createElement('option');
+        newOpt.value = '__new__';
+        newOpt.textContent = '➕ Criar nova lista...';
+        selectMovePlaylist.appendChild(newOpt);
+        selectMovePlaylist.value = (currentVideo && currentVideo.playlistId && state.playlists[currentVideo.playlistId])
+          ? currentVideo.playlistId
+          : '';
       }
 
       function renderSidebar() {
@@ -4790,7 +4952,12 @@
 
         const totalVideos = state.videos.length;
         const continueCount = state.videos.filter((v) => isVideoInProgress(v)).length;
-        const standaloneCount = state.videos.filter((v) => !v.playlistId).length;
+        const favVideosCount = state.videos.filter((v) => Boolean(v.favorite)).length;
+        const favPlaylistsCount = Object.values(state.playlists).reduce((acc, pl) => {
+          const list = Array.isArray(pl.youtubePlaylists) ? pl.youtubePlaylists : [];
+          return acc + list.filter((yp) => Boolean(yp.favorite)).length;
+        }, 0);
+        const favoritesCount = favVideosCount + favPlaylistsCount;
         const completedCount = state.videos.filter((v) => isVideoCompleted(v)).length;
 
         const navItems = [
@@ -4808,9 +4975,9 @@
           },
           {
             id: 'watchlist',
-            label: 'Minha Lista',
-            count: standaloneCount,
-            icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>`
+            label: 'Meus favoritos',
+            count: favoritesCount,
+            icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`
           },
           {
             id: 'completed',
@@ -5076,6 +5243,19 @@
         actions.appendChild(primaryBtn);
 
         if (!options.isGuideExtra) {
+          const favBtn = document.createElement('button');
+          favBtn.type = 'button';
+          favBtn.className = 'btn-card-icon' + (video.favorite ? ' favorited' : '');
+          favBtn.title = video.favorite ? 'Remover de Meus favoritos' : 'Adicionar a Meus favoritos';
+          favBtn.setAttribute('aria-label', favBtn.title);
+          favBtn.innerHTML = `
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="${video.favorite ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          `;
+          favBtn.onclick = () => toggleVideoFavorite(video.id);
+          actions.appendChild(favBtn);
+
           const doneBtn = document.createElement('button');
           doneBtn.type = 'button';
           doneBtn.className = 'btn-card-icon' + (completed ? ' watched' : '');
@@ -5120,18 +5300,36 @@
         actions.appendChild(extLink);
 
         if (!options.isGuideExtra) {
-          const delBtn = document.createElement('button');
-          delBtn.type = 'button';
-          delBtn.className = 'btn-card-icon danger';
-          delBtn.title = 'Remover vídeo';
-          delBtn.innerHTML = `
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="3 6 5 6 21 6"></polyline>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            </svg>
-          `;
-          delBtn.onclick = () => removeVideo(video.id);
-          actions.appendChild(delBtn);
+          if (contextType === 'continue') {
+            const unwatchBtn = document.createElement('button');
+            unwatchBtn.type = 'button';
+            unwatchBtn.className = 'btn-card-icon';
+            unwatchBtn.title = 'Remover de assistidos';
+            unwatchBtn.setAttribute('aria-label', 'Remover de assistidos');
+            unwatchBtn.innerHTML = `
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+              </svg>
+            `;
+            unwatchBtn.onclick = () => removeFromContinueWatching(video.id);
+            actions.appendChild(unwatchBtn);
+          } else {
+            const delBtn = document.createElement('button');
+            delBtn.type = 'button';
+            delBtn.className = 'btn-card-icon danger';
+            delBtn.title = 'Remover vídeo';
+            delBtn.setAttribute('aria-label', 'Remover vídeo');
+            delBtn.innerHTML = `
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            `;
+            delBtn.onclick = () => removeVideo(video.id);
+            actions.appendChild(delBtn);
+          }
         }
 
         body.appendChild(infoBlock);
@@ -5251,13 +5449,43 @@
           <span>YouTube</span>
         `;
 
+        const favPlBtn = document.createElement('button');
+        favPlBtn.type = 'button';
+        favPlBtn.className = 'btn-pl-secondary' + (ytpl.favorite ? ' favorited' : '');
+        favPlBtn.title = ytpl.favorite ? 'Remover playlist de Meus favoritos' : 'Adicionar playlist a Meus favoritos';
+        favPlBtn.innerHTML = `
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="${ytpl.favorite ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span>${ytpl.favorite ? 'Favorito' : 'Favoritar'}</span>
+        `;
+        favPlBtn.onclick = () => togglePlaylistFavorite(parentLesson ? parentLesson.id : ytpl.lessonId, ytpl.listId);
+
         actions.appendChild(playBtn);
         actions.appendChild(extractBtn);
+        actions.appendChild(favPlBtn);
         actions.appendChild(openExt);
 
         card.appendChild(top);
         card.appendChild(actions);
         return card;
+      }
+
+      function updateFavoriteButton() {
+        if (!btnToggleFavorite) return;
+        if (activePlayMode !== 'video') {
+          btnToggleFavorite.style.display = 'none';
+          return;
+        }
+        btnToggleFavorite.style.display = 'inline-flex';
+        const vid = activeVideoId ? state.videos.find((v) => v.id === activeVideoId) : null;
+        const isFav = Boolean(vid && vid.favorite);
+        btnToggleFavorite.classList.toggle('favorited', isFav);
+        btnToggleFavorite.title = isFav ? 'Remover de Meus favoritos' : 'Adicionar a Meus favoritos';
+        const svg = btnToggleFavorite.querySelector('svg');
+        if (svg) svg.setAttribute('fill', isFav ? 'currentColor' : 'none');
+        const lbl = btnToggleFavorite.querySelector('span');
+        if (lbl) lbl.textContent = isFav ? 'Favorito' : 'Favoritar';
       }
 
       function updateWatchedButton() {
@@ -5735,28 +5963,58 @@
           }
         }
 
-        // 3. Prateleira "Minha Lista (Para Assistir)"
+        // 3. Prateleira "Meus favoritos"
         const showWatchlist = (activeFilter === 'all' || activeFilter === 'watchlist');
-        let standaloneVideos = state.videos.filter((v) => !v.playlistId);
+        let favoriteVideos = state.videos.filter((v) => Boolean(v.favorite));
+        let favoritePlaylists = [];
+        Object.values(state.playlists).forEach((pl) => {
+          const list = Array.isArray(pl.youtubePlaylists) ? pl.youtubePlaylists : [];
+          list.forEach((yp) => {
+            if (yp.favorite) {
+              favoritePlaylists.push({ ytpl: yp, parentLesson: pl });
+            }
+          });
+        });
+
         if (activeCategory !== 'all') {
-          standaloneVideos = standaloneVideos.filter((v) => matchesCategoryFilter(v.category));
+          favoriteVideos = favoriteVideos.filter((v) => {
+            const plCat = v.playlistId && state.playlists[v.playlistId] ? state.playlists[v.playlistId].category : v.category;
+            return matchesCategoryFilter(plCat);
+          });
+          favoritePlaylists = favoritePlaylists.filter(({ parentLesson }) => matchesCategoryFilter(parentLesson.category));
         }
         if (hasSearch) {
-          standaloneVideos = standaloneVideos.filter(matchesVideoSearch);
+          favoriteVideos = favoriteVideos.filter(matchesVideoSearch);
+          favoritePlaylists = favoritePlaylists.filter(({ ytpl, parentLesson }) => matchesPlaylistSearch(ytpl, parentLesson));
         }
 
-        const shouldRenderWatchlist = activeFilter === 'watchlist' || (showWatchlist && standaloneVideos.length > 0 && !hasSearch);
+        const totalFavoritesRendered = favoriteVideos.length + favoritePlaylists.length;
+        const shouldRenderWatchlist = activeFilter === 'watchlist' || (showWatchlist && totalFavoritesRendered > 0 && !hasSearch);
         sectionWatchlist.style.display = shouldRenderWatchlist ? 'flex' : 'none';
+        let existingFavPlGrid = document.getElementById('shelf-watchlist-playlists');
+        if (existingFavPlGrid) existingFavPlGrid.remove();
+
         if (shouldRenderWatchlist) {
-          countWatchlist.textContent = standaloneVideos.length;
+          countWatchlist.textContent = totalFavoritesRendered;
           shelfWatchlist.innerHTML = '';
-          if (standaloneVideos.length === 0) {
-            shelfWatchlist.innerHTML = `<div class="empty-shelf">Nenhum vídeo avulso na Minha Lista. Cole um link na barra lateral ou use "Mover" no player.</div>`;
+          if (totalFavoritesRendered === 0) {
+            shelfWatchlist.innerHTML = `<div class="empty-shelf">Nenhum item em Meus favoritos. Clique no ícone de estrela (★) em qualquer vídeo ou playlist para favoritá-lo.</div>`;
           } else {
-            standaloneVideos.forEach((v) => {
+            favoriteVideos.forEach((v) => {
               shelfWatchlist.appendChild(createVideoCard(v, 'watchlist'));
               displayedVideoIds.add(v.id);
             });
+            if (favoritePlaylists.length > 0) {
+              const plGrid = document.createElement('div');
+              plGrid.id = 'shelf-watchlist-playlists';
+              plGrid.className = 'yt-playlists-grid';
+              plGrid.style.marginTop = favoriteVideos.length > 0 ? '0.9rem' : '0';
+              favoritePlaylists.forEach(({ ytpl, parentLesson }) => {
+                plGrid.appendChild(createYtPlaylistCard(ytpl, parentLesson));
+                displayedPlaylistIds.add(ytpl.listId);
+              });
+              sectionWatchlist.appendChild(plGrid);
+            }
           }
         }
 
@@ -5794,11 +6052,11 @@
         visiblePlaylistsCountEl.textContent = displayedPlaylistIds.size;
 
         const hasAnyPlaylistContainerResult = visibleLessonsCount > 0 || directVideoMatches.length > 0 || directPlaylistMatches.length > 0;
-        const nothingVisible = (hasSearch && !hasAnyPlaylistContainerResult && standaloneVideos.length === 0 && continueVideos.length === 0) ||
-          (activeFilter === 'all' && !hasAnyPlaylistContainerResult && standaloneVideos.length === 0 && continueVideos.length === 0) ||
+        const nothingVisible = (hasSearch && !hasAnyPlaylistContainerResult && totalFavoritesRendered === 0 && continueVideos.length === 0) ||
+          (activeFilter === 'all' && !hasAnyPlaylistContainerResult && totalFavoritesRendered === 0 && continueVideos.length === 0) ||
           (activeFilter.startsWith('playlist:') && !hasAnyPlaylistContainerResult) ||
           (activeFilter === 'continue' && continueVideos.length === 0 && hasSearch) ||
-          (activeFilter === 'watchlist' && standaloneVideos.length === 0 && hasSearch) ||
+          (activeFilter === 'watchlist' && totalFavoritesRendered === 0 && hasSearch) ||
           (activeFilter === 'completed' && completedVideos.length === 0 && hasSearch);
         emptyStateEl.classList.toggle('visible', nothingVisible);
       }
@@ -5834,23 +6092,42 @@
         }
       };
 
-      function getNextVideoInQueue(currentId) {
-        const current = state.videos.find((v) => v.id === currentId);
-        if (!current) return null;
-
-        if (current.playlistId) {
+      function getOrderedVideosAcrossTopics() {
+        const ordered = [];
+        const seen = new Set();
+        getSortedPlaylistEntries().forEach((pl) => {
           const plVideos = state.videos
-            .filter((v) => v.playlistId === current.playlistId)
+            .filter((v) => v.playlistId === pl.id)
             .sort((a, b) => (a.playlistOrder ?? 0) - (b.playlistOrder ?? 0));
-
-          const idx = plVideos.findIndex((v) => v.id === currentId);
-          if (idx !== -1 && idx + 1 < plVideos.length) {
-            return plVideos[idx + 1];
+          plVideos.forEach((v) => {
+            if (!seen.has(v.id)) {
+              seen.add(v.id);
+              ordered.push(v);
+            }
+          });
+        });
+        state.videos.forEach((v) => {
+          if (!seen.has(v.id)) {
+            seen.add(v.id);
+            ordered.push(v);
           }
-        }
+        });
+        return ordered;
+      }
 
-        const candidates = state.videos.filter((v) => v.id !== currentId && !isVideoCompleted(v));
-        return candidates.length > 0 ? candidates[0] : null;
+      function getAdjacentVideoInTopics(currentId, direction) {
+        const ordered = getOrderedVideosAcrossTopics();
+        const idx = ordered.findIndex((v) => v.id === currentId);
+        if (idx === -1) return null;
+        const targetIdx = idx + (direction < 0 ? -1 : 1);
+        if (targetIdx >= 0 && targetIdx < ordered.length) {
+          return ordered[targetIdx];
+        }
+        return null;
+      }
+
+      function getNextVideoInQueue(currentId) {
+        return getAdjacentVideoInTopics(currentId, 1);
       }
 
       function playPlaylistFromNextUnfinished(playlistId) {
@@ -5916,7 +6193,7 @@
         }
       }
 
-      function openVideoInCinema(videoId) {
+      function openVideoInCinema(videoId, options = {}) {
         const video = state.videos.find((v) => v.id === videoId);
         if (!video) return;
 
@@ -5924,7 +6201,7 @@
           toggleDidacticGuide(false);
         }
 
-        if (activePlayMode === 'video' && activeVideoId && activeVideoId !== videoId) {
+        if (activePlayMode === 'video' && activeVideoId && activeVideoId !== videoId && !options.skipImmediateSync) {
           syncPlaybackProgress(true);
         }
 
@@ -5949,16 +6226,25 @@
         updateCinemaPedagogy(video.playlistId || video.guideMeta || null);
         updatePlayerMovePlaylistSelect(video);
 
-        const nextVid = getNextVideoInQueue(video.id);
+        const prevVid = getAdjacentVideoInTopics(video.id, -1);
+        if (btnPrevInQueue) {
+          btnPrevInQueue.disabled = !prevVid;
+          btnPrevInQueue.title = prevVid ? `Anterior: ${prevVid.title}` : 'Início do acervo';
+        }
+
+        const nextVid = getAdjacentVideoInTopics(video.id, 1);
         btnNextInQueue.disabled = !nextVid;
-        btnNextInQueue.title = nextVid ? `Próximo: ${nextVid.title}` : 'Fim da fila';
+        btnNextInQueue.title = nextVid ? `Próximo: ${nextVid.title}` : 'Fim do acervo';
 
         const startSeconds = isVideoCompleted(video) ? 0 : Math.floor(video.currentTime || 0);
         if (isVideoCompleted(video)) {
           video.currentTime = 0;
         }
-        video.lastWatched = Date.now();
-        saveLibrary();
+        activeSessionStartSeconds = startSeconds;
+        activeSessionPlayConfirmed = false;
+
+        updateWatchedButton();
+        updateFavoriteButton();
         renderAll();
 
         cinemaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -6002,10 +6288,15 @@
         }
 
         updateCinemaPedagogy(parentLesson && parentLesson.id ? parentLesson.id : (parentLesson || ytpl.lessonId));
+        if (btnPrevInQueue) {
+          btnPrevInQueue.disabled = false;
+          btnPrevInQueue.title = 'Faixa anterior da playlist';
+        }
         btnNextInQueue.disabled = false;
         btnNextInQueue.title = 'Próxima faixa da playlist';
 
         updateWatchedButton();
+        updateFavoriteButton();
         renderAll();
         cinemaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -6161,31 +6452,33 @@
             cinemaVideoTitle.textContent = video.title;
           }
 
-          if (typeof cur === 'number' && !isNaN(cur)) {
-            video.currentTime = Math.floor(cur);
-          }
-
           if (typeof dur === 'number' && dur > 0) {
             video.duration = Math.floor(dur);
           }
 
-          video.lastWatched = Date.now();
+          const curSec = (typeof cur === 'number' && !isNaN(cur)) ? Math.floor(cur) : (Number(video.currentTime) || 0);
+          const watchedDelta = Math.abs(curSec - activeSessionStartSeconds);
+          if (curSec >= 10 && (watchedDelta >= 5 || isVideoInProgress(video) || activeSessionPlayConfirmed)) {
+            activeSessionPlayConfirmed = true;
+            video.currentTime = curSec;
+            video.lastWatched = Date.now();
 
-          if (video.duration > 0 && (video.currentTime / video.duration) >= 0.95) {
-            video.completed = true;
-          }
+            if (video.duration > 0 && (video.currentTime / video.duration) >= 0.95) {
+              video.completed = true;
+            }
 
-          saveLibrary();
+            saveLibrary();
 
-          const timeLabel = new Date().toLocaleTimeString('pt-BR', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-          });
-          syncStatusText.querySelector('span').textContent = `Salvo automaticamente às ${timeLabel} (${formatTime(video.currentTime)})`;
+            const timeLabel = new Date().toLocaleTimeString('pt-BR', {
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit'
+            });
+            syncStatusText.querySelector('span').textContent = `Salvo automaticamente às ${timeLabel} (${formatTime(video.currentTime)})`;
 
-          if (forceRender) {
-            renderAll();
+            if (forceRender) {
+              renderAll();
+            }
           }
         } catch (e) { }
       }
@@ -6336,9 +6629,58 @@
         renderAll();
       }
 
+      function toggleVideoFavorite(videoId) {
+        const video = state.videos.find((v) => v.id === videoId);
+        if (!video) return;
+        video.favorite = !video.favorite;
+        saveLibrary();
+        updateFavoriteButton();
+        renderAll();
+        showToast(video.favorite
+          ? `"${video.title}" adicionado a Meus favoritos.`
+          : `"${video.title}" removido de Meus favoritos.`);
+      }
+
+      function togglePlaylistFavorite(lessonId, listId) {
+        const pl = lessonId ? state.playlists[lessonId] : null;
+        if (!pl || !Array.isArray(pl.youtubePlaylists)) return;
+        const target = pl.youtubePlaylists.find((yp) => yp.listId === listId);
+        if (!target) return;
+        target.favorite = !target.favorite;
+        saveLibrary();
+        renderAll();
+        showToast(target.favorite
+          ? `Playlist "${target.name}" adicionada a Meus favoritos.`
+          : `Playlist "${target.name}" removida de Meus favoritos.`);
+      }
+
+      function removeFromContinueWatching(videoId) {
+        const video = state.videos.find((v) => v.id === videoId);
+        if (!video) return;
+        video.currentTime = 0;
+        video.lastWatched = null;
+        video.completed = false;
+        if (activePlayMode === 'video' && activeVideoId === videoId) {
+          activeSessionStartSeconds = 0;
+          activeSessionPlayConfirmed = false;
+        }
+        saveLibrary();
+        renderAll();
+        showToast(`"${video.title}" removido de Continuar Assistindo (mantido no acervo).`);
+      }
+
       function removeVideo(videoId) {
         const idx = state.videos.findIndex((v) => v.id === videoId);
         if (idx === -1) return;
+
+        const target = state.videos[idx];
+        const ok = window.confirm(
+          `Remover "${target.title}" do aplicativo?\n\n` +
+          `O que isso acarretará:\n` +
+          `• O vídeo será excluído permanentemente da sua biblioteca local e do tópico/lista atual.\n` +
+          `• Todo o progresso de reprodução, marcação de assistido e favorito deste vídeo serão perdidos.`
+        );
+        if (!ok) return;
 
         const [removed] = state.videos.splice(idx, 1);
         undoBuffer = { type: 'video', item: removed, index: idx };
@@ -6628,6 +6970,16 @@
 
       urlInput.addEventListener('input', updateInputDetectionUI);
 
+      if (videoTargetPlaylist) {
+        videoTargetPlaylist.addEventListener('change', () => {
+          const isNew = videoTargetPlaylist.value === '__new__';
+          if (newListNameInput) {
+            newListNameInput.style.display = isNew ? 'block' : 'none';
+            if (isNew) newListNameInput.focus();
+          }
+        });
+      }
+
       importForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const parsed = parseYouTubeUrl(urlInput.value);
@@ -6651,7 +7003,8 @@
             updateInputDetectionUI();
             const parsed = parseYouTubeUrl(clip.trim());
             if (parsed.type === 'video') {
-              handleAddSingleVideo(parsed.videoId);
+              showToast('Vídeo detectado! Escolha o tópico/lista e clique em "Adicionar Vídeo".');
+              if (videoTargetPlaylist) videoTargetPlaylist.focus();
             } else if (parsed.type === 'playlist') {
               showToast('Playlist detectada! Dê um nome opcional ou clique em "Importar Playlist".');
               playlistCustomNameInput.focus();
@@ -6697,17 +7050,42 @@
         }
       });
 
+      if (btnToggleFavorite) {
+        btnToggleFavorite.addEventListener('click', () => {
+          if (activePlayMode === 'video' && activeVideoId) {
+            toggleVideoFavorite(activeVideoId);
+          }
+        });
+      }
+
+      if (btnPrevInQueue) {
+        btnPrevInQueue.addEventListener('click', () => {
+          if (activePlayMode === 'playlist' && ytPlayer && typeof ytPlayer.previousVideo === 'function') {
+            ytPlayer.previousVideo();
+            return;
+          }
+          if (activePlayMode === 'video' && activeVideoId) {
+            const prevVid = getAdjacentVideoInTopics(activeVideoId, -1);
+            if (prevVid) {
+              openVideoInCinema(prevVid.id, { skipImmediateSync: !activeSessionPlayConfirmed });
+            } else {
+              showToast('Você já está no primeiro vídeo do acervo!');
+            }
+          }
+        });
+      }
+
       btnNextInQueue.addEventListener('click', () => {
         if (activePlayMode === 'playlist' && ytPlayer && typeof ytPlayer.nextVideo === 'function') {
           ytPlayer.nextVideo();
           return;
         }
         if (activePlayMode === 'video' && activeVideoId) {
-          const nextVid = getNextVideoInQueue(activeVideoId);
+          const nextVid = getAdjacentVideoInTopics(activeVideoId, 1);
           if (nextVid) {
-            openVideoInCinema(nextVid.id);
+            openVideoInCinema(nextVid.id, { skipImmediateSync: !activeSessionPlayConfirmed });
           } else {
-            showToast('Você já está no último vídeo da fila!');
+            showToast('Você já está no último vídeo do acervo!');
           }
         }
       });
@@ -6738,14 +7116,22 @@
         const video = state.videos.find((v) => v.id === activeVideoId);
         if (!video) return;
 
-        const targetPlId = e.target.value || null;
-        if (!targetPlId) {
-          video.playlistId = null;
-          video.playlistName = null;
-          cinemaPlaylistTag.classList.remove('visible');
-          updateCinemaPedagogy(null);
-          showToast('Vídeo movido para Minha Lista (Avulso).');
-        } else if (state.playlists[targetPlId]) {
+        let targetPlId = e.target.value || null;
+        if (targetPlId === '__new__') {
+          const newListName = window.prompt('Nome da nova lista para mover este vídeo:');
+          if (!newListName || !newListName.trim()) {
+            updatePlayerMovePlaylistSelect(video);
+            return;
+          }
+          const created = createCustomListInState(newListName.trim());
+          if (!created) {
+            updatePlayerMovePlaylistSelect(video);
+            return;
+          }
+          targetPlId = created.id;
+        }
+
+        if (targetPlId && state.playlists[targetPlId]) {
           video.playlistId = targetPlId;
           video.playlistName = state.playlists[targetPlId].name;
           cinemaPlaylistTag.textContent = video.playlistName;
