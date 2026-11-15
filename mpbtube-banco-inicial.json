@@ -1,7 +1,7 @@
 {
   "app": "MPBTube",
   "version": 9,
-  "course": "História da Música Popular Brasileira",
+  "course": "História das músicas populares brasileiras",
   "exportedAt": "2026-11-14T11:25:00.000Z",
   "playlists": {
     "aula_01": {
@@ -3740,7 +3740,7 @@
   ],
   "subtitle": "Para aprender e ensinar • Guia de Estudos em 18 Tópicos",
   "studyGuide": {
-    "title": "História da Música Popular Brasileira",
+    "title": "História das músicas populares brasileiras",
     "subtitle": "Para aprender e ensinar • Guia de Estudos em 18 Tópicos",
     "format": "Curadoria audiovisual comentada de acesso livre"
   }
